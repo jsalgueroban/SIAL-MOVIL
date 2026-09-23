@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#005CA8">
+  <title>SIAL Móvil - Acceso sin conexión</title>
+  <script>
+    (function () {
+      var saved = localStorage.getItem("sial-mobile-theme");
+      var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = saved || (systemDark ? "dark" : "light");
+    })();
+  </script>
+  <link rel="stylesheet" href="../shared/sial-mobile-core.css">
+  <link rel="stylesheet" href="../shared/sial-datetime-control.css">
+  <link rel="stylesheet" href="credencial-offline.css">
+</head>
+<body>
+  <main class="sial-page">
+    <header class="sial-page-header">
+      <a class="sial-btn sial-btn-icon" href="../app/home.html" aria-label="Volver a Mi jornada">
+        <svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </a>
+      <span class="sial-app-isotype" aria-hidden="true"><img src="../assets/brand/isotipo-sial.svg" alt=""></span>
+      <div class="sial-page-title">
+        <h1>Acceso sin conexión</h1>
+        <p>Credencial segura para este dispositivo</p>
+      </div>
+      <button class="sial-btn sial-btn-icon" type="button" data-theme-toggle aria-label="Cambiar tema">
+        <svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 7 9 9 0 1 1-9-7Z"/></svg>
+      </button>
+    </header>
+
+    <section class="sial-page-body offline-credential-page">
+      <section class="sial-card sial-card-pad sial-inspection-section offline-device-card" aria-labelledby="offline-device-title" data-device-context>
+        <div class="sial-inspection-section-heading">
+          <span class="sial-inspection-section-icon" aria-hidden="true">
+            <svg class="sial-icon" viewBox="0 0 24 24"><circle cx="8" cy="15" r="3"/><path d="m10.5 12.5 7-7a2.1 2.1 0 0 1 3 3l-7 7"/><path d="m16 7 2 2"/><path d="M5 18l-2 2"/></svg>
+          </span>
+          <div><h2 class="sial-section-title" id="offline-device-title">Credencial offline</h2><p>Continúa trabajando cuando este dispositivo no tenga conexión.</p></div>
+        </div>
+        <dl class="offline-device-details">
+          <div><dt>Dispositivo</dt><dd>Este dispositivo</dd></div>
+          <div><dt>Almacenamiento</dt><dd>Local</dd></div>
+        </dl>
+        <p class="sial-field-note">Esta credencial no reemplaza tu contraseña de SIAL.</p>
+      </section>
+
+      <form class="sial-card sial-card-pad sial-form sial-inspection-section offline-form" id="offline-credential-form" data-offline-form novalidate>
+        <div class="sial-inspection-section-heading">
+          <span class="sial-inspection-section-icon" aria-hidden="true">
+            <svg class="sial-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>
+          </span>
+          <div><h2 class="sial-section-title">Vigencia de la credencial</h2><p>Define cuánto tiempo estará disponible el acceso local.</p></div>
+        </div>
+        <div class="sial-field">
+          <span class="sial-label">Tipo de vigencia</span>
+          <div class="sial-segmented" aria-label="Tipo de vigencia" data-expiration-segment>
+            <button class="sial-segment-option" type="button" aria-pressed="true" data-expiration-mode="scheduled">
+              <svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>
+              Con vencimiento
+            </button>
+            <button class="sial-segment-option" type="button" aria-pressed="false" data-expiration-mode="permanent">
+              <svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8.5 6 11a3.5 3.5 0 0 0 5 5l2.5-2.5"/><path d="m15.5 15.5 2.5-2.5a3.5 3.5 0 0 0-5-5l-2.5 2.5"/></svg>
+              Sin vencimiento
+            </button>
+          </div>
+          <input type="hidden" name="expiration-mode" value="scheduled" data-expiration-value>
+          <p class="sial-field-note" data-expiration-note>Recomendado para reducir el tiempo de exposición.</p>
+        </div>
+
+        <div class="sial-field offline-expiration" data-expiration-field>
+          <label class="sial-label" for="offline-expiration">Fecha y hora de vencimiento</label>
+          <div class="sial-datetime-control" data-sial-datetime-picker data-datetime-label="Fecha y hora de vencimiento" data-datetime-time-label="Hora de vencimiento">
+            <input class="sial-datetime-input-native" id="offline-expiration" name="expiration" type="datetime-local" required aria-describedby="expiration-help expiration-error" tabindex="-1" aria-hidden="true" inert>
+            <button class="sial-datetime-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="offline-expiration-picker" aria-describedby="expiration-help expiration-error">
+              <span class="sial-datetime-trigger-copy"><strong data-sial-datetime-value>Selecciona fecha y hora</strong></span>
+              <svg class="sial-datetime-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+            </button>
+            <div class="sial-datetime-popover" id="offline-expiration-picker" role="dialog" aria-modal="false" aria-label="Seleccionar fecha y hora de vencimiento" hidden></div>
+          </div>
+          <p class="sial-field-note" id="expiration-help">Debe ser posterior a la fecha y hora actuales.</p>
+          <p class="sial-inline-error" id="expiration-error" data-expiration-error role="alert" hidden></p>
+        </div>
+
+        <div class="sial-status warning" data-permanent-warning hidden>
+          <svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.8 20h18.4L12 3Z"/><path d="M12 9v4"/><path d="M12 16h.01"/></svg>
+          <span class="sial-feedback-copy"><strong>Acceso sin vencimiento</strong><p>Si pierdes el dispositivo, elimina la credencial desde tu cuenta tan pronto recuperes conexión.</p></span>
+        </div>
+
+      </form>
+
+      <section class="sial-card sial-card-pad sial-confirmation-card offline-confirmation" aria-label="Confirmación de credencial" data-config-confirmation>
+        <p class="sial-confirmation-copy">Revisa la vigencia antes de generar la credencial para este dispositivo.</p>
+        <button class="sial-btn sial-btn-primary sial-btn-full offline-submit" type="submit" form="offline-credential-form">
+          <svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="3"/><path d="m10.5 12.5 7-7a2.1 2.1 0 0 1 3 3l-7 7"/><path d="m16 7 2 2"/></svg>
+          <span>Generar credencial offline</span>
+        </button>
+      </section>
+
+      <section class="sial-card sial-card-pad sial-inspection-section offline-active" data-active-credential aria-labelledby="active-title" hidden>
+        <div class="offline-active-head">
+          <span class="sial-inspection-section-icon offline-active-icon" aria-hidden="true">
+            <svg class="sial-icon" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg>
+          </span>
+          <div class="offline-active-heading">
+            <h2 class="sial-section-title" id="active-title">Credencial activa</h2>
+            <p>Este dispositivo puede operar sin conexión.</p>
+          </div>
+        </div>
+        <dl class="offline-active-details">
+          <div class="offline-active-detail">
+            <dt>Dispositivo</dt>
+            <dd>Este dispositivo</dd>
+          </div>
+          <div class="offline-active-detail">
+            <dt>Vigencia</dt>
+            <dd data-active-expiration>Sin vencimiento</dd>
+          </div>
+        </dl>
+        <p class="offline-active-copy">Podrás continuar con las operaciones habilitadas aunque pierdas la conexión.</p>
+        <button class="sial-btn sial-btn-full offline-remove-button" type="button" data-remove-credential>
+          <span>Eliminar credencial</span>
+        </button>
+      </section>
+
+    </section>
+  </main>
+
+  <script src="../shared/sial-mobile-core.js"></script>
+  <script src="../shared/sial-datetime-control.js"></script>
+  <script src="credencial-offline.js"></script>
+</body>
+</html>

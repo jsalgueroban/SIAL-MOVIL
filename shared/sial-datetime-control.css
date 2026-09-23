@@ -1,0 +1,198 @@
+.sial-datetime-control {
+  position: relative;
+  min-width: 0;
+  border: 1px solid var(--sial-border);
+  border-radius: var(--sial-radius-control);
+  background: var(--sial-field-bg);
+  transition: border-color var(--sial-motion-fast) var(--sial-motion-ease), box-shadow var(--sial-motion-fast) var(--sial-motion-ease);
+}
+
+.sial-datetime-input-native {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sial-datetime-control:focus-within {
+  border-color: var(--sial-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sial-focus) 16%, transparent);
+}
+
+.sial-datetime-trigger {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: var(--sial-text);
+  font: inherit;
+  text-align: left;
+}
+
+.sial-datetime-trigger-copy {
+  min-width: 0;
+  display: block;
+  flex: 1;
+}
+
+.sial-datetime-trigger-copy strong {
+  overflow: hidden;
+  display: block;
+  color: var(--sial-text);
+  font-size: 14px;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sial-datetime-chevron {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--sial-text-3);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.sial-datetime-popover {
+  position: absolute;
+  z-index: 12;
+  top: calc(100% + 8px);
+  right: 0;
+  left: 0;
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--sial-border);
+  border-radius: 18px;
+  background: var(--sial-surface-overlay);
+  box-shadow: var(--sial-shadow-overlay);
+}
+
+.sial-datetime-popover[hidden] { display: none; }
+
+.sial-picker-header,
+.sial-picker-actions,
+.sial-picker-time-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sial-picker-header strong {
+  flex: 1;
+  color: var(--sial-text);
+  font-size: 12px;
+  line-height: 1.25;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.sial-picker-nav,
+.sial-picker-action {
+  min-width: 36px;
+  min-height: 36px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--sial-border-subtle);
+  border-radius: 10px;
+  background: var(--sial-surface);
+  color: var(--sial-primary-600);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sial-picker-action { min-width: auto; padding: 0 12px; }
+
+.sial-picker-action.is-primary {
+  border-color: var(--sial-primary-500);
+  background: var(--sial-primary-500);
+  color: var(--sial-on-primary);
+}
+
+.sial-picker-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.sial-picker-weekday,
+.sial-picker-day {
+  min-height: 32px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--sial-text-2);
+  font: inherit;
+  font-size: 11px;
+}
+
+.sial-picker-weekday {
+  min-height: 24px;
+  color: var(--sial-text-3);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.sial-picker-day:not(:disabled):hover,
+.sial-picker-day.is-selected {
+  background: var(--sial-primary-500);
+  color: var(--sial-on-primary);
+  font-weight: 700;
+}
+
+.sial-picker-day.is-today { box-shadow: inset 0 0 0 1px var(--sial-primary-500); }
+.sial-picker-day:disabled { cursor: not-allowed; opacity: .35; }
+
+.sial-picker-time {
+  display: grid;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--sial-border-subtle);
+}
+
+.sial-picker-time-head span {
+  color: var(--sial-text-3);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.sial-picker-time-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.sial-picker-time-grid select {
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--sial-border);
+  border-radius: 10px;
+  background: var(--sial-field-bg);
+  color: var(--sial-text);
+  font: inherit;
+  font-size: 12px;
+}
+
+@media (max-width: 350px) {
+  .sial-datetime-popover { right: -8px; left: -8px; padding: 12px; }
+  .sial-picker-time-grid { gap: 6px; }
+  .sial-picker-time-grid select { padding-inline: 6px; }
+}

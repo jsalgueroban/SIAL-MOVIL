@@ -1,0 +1,157 @@
+.offline-credential-page {
+  gap: 16px;
+  padding-bottom: max(32px, env(safe-area-inset-bottom));
+}
+
+.offline-device-card,
+.offline-form,
+.offline-confirmation,
+.offline-active {
+  margin: 0;
+}
+
+.offline-form {
+  gap: 16px;
+}
+
+.offline-device-details {
+  margin: 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--sial-border-subtle);
+}
+
+.offline-device-details > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--sial-border-subtle);
+}
+
+.offline-device-details dt,
+.offline-device-details dd {
+  margin: 0;
+  font-size: 12px;
+}
+
+.offline-device-details dt {
+  color: var(--sial-text);
+  font-weight: 600;
+}
+
+.offline-device-details dd {
+  color: var(--sial-text-2);
+  text-align: right;
+}
+
+.offline-expiration .sial-datetime-control.has-error {
+  border-color: var(--sial-error);
+}
+
+.offline-form .sial-segmented {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.offline-form .sial-segment-option {
+  min-height: 52px;
+  gap: 7px;
+  white-space: normal;
+  line-height: 1.25;
+}
+
+.offline-active {
+  display: grid;
+  gap: 16px;
+}
+
+.offline-active-head {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.offline-active-icon {
+  width: 40px;
+  height: 40px;
+  border-color: color-mix(in srgb, var(--sial-success) 35%, var(--sial-border));
+  background: var(--sial-success-bg);
+  color: var(--sial-success);
+}
+
+.offline-active-heading {
+  min-width: 0;
+}
+
+.offline-active-heading > p {
+  margin: 4px 0 0;
+  color: var(--sial-text-2);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.offline-active-details {
+  margin: 0;
+  display: grid;
+  border-block: 1px solid var(--sial-border-subtle);
+}
+
+.offline-active-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 50px;
+}
+
+.offline-active-detail + .offline-active-detail {
+  border-top: 1px solid var(--sial-border-subtle);
+}
+
+.offline-active-detail dt {
+  color: var(--sial-text-2);
+  font-size: 12px;
+}
+
+.offline-active-detail dd {
+  margin: 0;
+  color: var(--sial-text);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.offline-active-copy {
+  margin: 0;
+  color: var(--sial-text-2);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.offline-remove-button {
+  border-color: color-mix(in srgb, var(--sial-error) 40%, var(--sial-border));
+  background: transparent;
+  color: var(--sial-error);
+}
+
+.offline-remove-button:hover {
+  background: var(--sial-error-bg);
+}
+
+.offline-remove-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--sial-error) 24%, transparent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 350px) {
+  .offline-active-detail {
+    grid-template-columns: 1fr;
+    gap: 3px;
+    padding: 10px 0;
+  }
+
+  .offline-active-detail dd {
+    text-align: left;
+  }
+}
