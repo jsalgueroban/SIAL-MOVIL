@@ -210,23 +210,11 @@
   }
 
   function vehicleTraceEvents(item, index) {
-    if (Array.isArray(item.events)) return item.events;
-
-    var programmed = {
-      id: item.id + "-programacion",
-      title: "Programación del recorrido",
-      at: item.scheduledAt,
-      location: item.origin,
-      user: "Planeación de transporte",
-      status: "Registrado",
-      severity: "info",
-      summary: "Se programó el vehículo para atender la operación " + item.id + ".",
-      evidences: []
-    };
-    if ((Number(item.step) || 0) === 0) return [programmed];
-
+    var current = Math.max(0, Math.min(Number(item.step) || 0, 5));
     var departureAt = new Date(item.scheduledAt || item.updatedAt);
     departureAt.setMinutes(departureAt.getMinutes() + 24);
+    var assignedAt = new Date(item.scheduledAt || item.updatedAt);
+    assignedAt.setMinutes(assignedAt.getMinutes() + 10);
     var departureEvidence = {
       id: "EVD-" + String(4100 + index * 10 + 1),
       title: "Vehículo habilitado para salida",
@@ -239,29 +227,7 @@
       note: "Placa, conductor y condición externa validados antes del despacho.",
       image: "../assets/login/Imagen 1.jpg"
     };
-    var events = [programmed, {
-      id: item.id + "-salida",
-      title: "Salida confirmada",
-      at: departureAt.toISOString(),
-      location: item.origin,
-      user: "Operador de portería",
-      status: "Completado",
-      severity: "success",
-      summary: "El vehículo superó el control de salida e inició el recorrido.",
-      evidences: [departureEvidence]
-    }];
-
-    if ((Number(item.step) || 0) >= 3) {
-      events.push({
-        id: item.id + "-transito",
-        title: "Control durante el recorrido",
-        at: item.status === "EN_TRANSITO" ? item.updatedAt : departureAt.toISOString(),
-        location: item.direction === "ENTRADA" ? "Corredor Zona Externa – finca" : "Corredor finca – Zona Externa",
-        user: item.driver,
-        status: index === 1 ? "Con novedad" : "Conforme",
-        severity: index === 1 ? "warning" : "success",
-        summary: index === 1 ? "Se registró una novedad visual pendiente de validación." : "Seguimiento operativo sin novedades reportadas.",
-        evidences: [{
+    var transitEvidence = {
           id: "EVD-" + String(4100 + index * 10 + 2),
           title: index === 1 ? "Condición del contenedor" : "Control en ruta",
           checkpoint: "Seguimiento de recorrido",
@@ -272,21 +238,8 @@
           sync: index === 1 ? "Pendiente de sincronización" : "Sincronizada",
           note: index === 1 ? "La evidencia fue capturada sin conexión y requiere validación operativa." : "Registro fotográfico asociado al último punto de control.",
           image: "../assets/login/Imagen 4.jpg"
-        }]
-      });
-    }
-
-    if ((Number(item.step) || 0) >= 4) {
-      events.push({
-        id: item.id + "-recepcion",
-        title: "Recepción en destino",
-        at: item.updatedAt,
-        location: item.destination,
-        user: "Operador de recepción",
-        status: "Completado",
-        severity: "success",
-        summary: "El vehículo fue recibido y quedó disponible para la siguiente actividad.",
-        evidences: [{
+    };
+    var receptionEvidence = {
           id: "EVD-" + String(4100 + index * 10 + 3),
           title: "Llegada al punto de destino",
           checkpoint: "Control de acceso · " + item.destination,
@@ -297,10 +250,27 @@
           sync: "Sincronizada",
           note: "Llegada confirmada con validación visual del vehículo y el contenedor.",
           image: "../assets/login/Imagen 1.jpg"
-        }]
+    };
+    var stages = [
+      { key: "programado", title: "Programado", at: item.scheduledAt, location: item.origin, user: "Planeación de transporte", summary: "Programación registrada para atender la operación " + item.id + ".", evidences: [] },
+      { key: "conductor", title: "Conductor asignado", at: assignedAt.toISOString(), location: item.origin, user: "Coordinación de transporte", summary: item.driver + " fue asignado al vehículo " + item.plate + ".", evidences: [] },
+      { key: "despacho", title: "Despachado", at: departureAt.toISOString(), location: item.origin, user: "Operador de portería", summary: "El vehículo superó el control de salida e inició el recorrido.", evidences: [departureEvidence] },
+      { key: "transito", title: "En tránsito", at: item.updatedAt, location: item.direction === "ENTRADA" ? "Corredor Zona Externa – finca" : "Corredor finca – Zona Externa", user: item.driver, summary: index === 1 ? "Se registró una novedad visual pendiente de validación." : "Seguimiento operativo sin novedades reportadas.", evidences: [transitEvidence] },
+      { key: "recibido", title: "Recibido en destino", at: item.updatedAt, location: item.destination, user: "Operador de recepción", summary: "El vehículo fue recibido y quedó disponible para la siguiente actividad.", evidences: [receptionEvidence] },
+      { key: "finalizado", title: "Finalizado", at: item.updatedAt, location: item.destination, user: "Supervisor de transporte", summary: "La operación fue cerrada sin actividades pendientes.", evidences: [] }
+    ];
+    return stages.map(function (stage, stageIndex) {
+      var state = stageIndex < current ? "complete" : stageIndex === current ? "current" : "pending";
+      return Object.assign({}, stage, {
+        id: item.id + "-" + stage.key,
+        state: state,
+        status: state === "complete" ? "Completado" : state === "current" ? "Estado actual" : "Pendiente",
+        severity: state === "complete" ? "success" : state === "current" ? "info" : "neutral",
+        at: state === "pending" ? "" : stage.at,
+        user: state === "pending" ? "" : stage.user,
+        evidences: state === "pending" ? [] : stage.evidences
       });
-    }
-    return events;
+    });
   }
 
   function readVehicles() {
@@ -377,10 +347,12 @@
           ? '<img src="' + escapeHtml(evidence.image) + '" alt="' + escapeHtml(evidence.title) + '" loading="lazy">'
           : '<span class="vehicle-evidence-missing" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m7 15 3-3 3 3 2-2 3 3"/></svg></span>';
         return '<button class="vehicle-evidence-card" type="button" data-open-vehicle-evidence="' + escapeHtml(evidence.id) + '" data-vehicle-id="' + escapeHtml(item.id) + '" data-event-id="' + escapeHtml(event.id) + '"><span class="vehicle-evidence-image">' + visual + '<em class="' + escapeHtml(evidence.type) + '">' + escapeHtml(evidence.status) + '</em><b>' + String(photoIndex + 1).padStart(2, "0") + '/' + String(evidences.length).padStart(2, "0") + '</b></span><span class="vehicle-evidence-copy"><strong>' + escapeHtml(evidence.title) + '</strong><small>' + escapeHtml(formatHour(evidence.date)) + ' · ' + escapeHtml(evidence.id) + '</small></span></button>';
-      }).join("") + '</div>' : '<div class="vehicle-evidence-empty"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4z"/><path d="m8 13 2-2 3 3 2-2 2 2"/></svg><span><strong>Sin evidencia fotográfica</strong><small>Este evento no requiere una imagen para continuar.</small></span></div>';
-      return '<article class="vehicle-trace-event"><span class="vehicle-trace-marker ' + escapeHtml(event.severity || "info") + '" aria-hidden="true"></span><div class="vehicle-trace-event-body"><header><div><strong>' + escapeHtml(event.title) + '</strong><span>' + escapeHtml(event.location || "Ubicación no informada") + '</span></div><span class="sial-pill ' + escapeHtml(event.severity || "info") + '">' + escapeHtml(event.status || "Registrado") + '</span></header><div class="vehicle-trace-meta"><span>' + escapeHtml(formatDate(event.at)) + '</span><span>' + escapeHtml(event.user || "Usuario no informado") + '</span><b>' + evidences.length + (evidences.length === 1 ? " foto" : " fotos") + '</b></div><p>' + escapeHtml(event.summary || "Sin detalle adicional.") + '</p>' + photos + '</div></article>';
+      }).join("") + '</div>' : '';
+      var meta = event.state === "pending" ? '' : '<div class="vehicle-trace-meta"><span>' + escapeHtml(formatDate(event.at)) + '</span><span>' + escapeHtml(event.user) + '</span>' + (evidences.length ? '<b>' + evidences.length + (evidences.length === 1 ? " foto" : " fotos") + '</b>' : '') + '</div>';
+      var summary = event.state === "pending" ? '' : '<p>' + escapeHtml(event.summary || "Sin detalle adicional.") + '</p>';
+      return '<article class="vehicle-trace-event is-' + escapeHtml(event.state || "pending") + '"><span class="vehicle-trace-marker ' + escapeHtml(event.state || "pending") + '" aria-hidden="true"></span><div class="vehicle-trace-event-body"><header><div><strong>' + escapeHtml(event.title) + '</strong><span>' + escapeHtml(event.location || "Ubicación por confirmar") + '</span></div><span class="sial-pill ' + escapeHtml(event.severity || "neutral") + '">' + escapeHtml(event.status || "Pendiente") + '</span></header>' + meta + summary + photos + '</div></article>';
     }).join("");
-    return '<div class="vehicle-trace-summary"><span><strong>' + events.length + '</strong> eventos registrados</span><span><strong>' + total + '</strong> evidencias fotográficas</span></div><div class="vehicle-trace-list">' + rows + '</div>';
+    return '<div class="vehicle-trace-summary"><span><strong>' + (Math.min(Number(item.step) || 0, events.length - 1) + 1) + ' de ' + events.length + '</strong> etapa actual</span><span><strong>' + total + '</strong> evidencias fotográficas</span></div><div class="vehicle-trace-list">' + rows + '</div>';
   }
 
   function linkedContainerHref(item) {
@@ -483,23 +455,6 @@
     setViewState("empty");
   }
 
-  function journeyRows(item) {
-    var stages = [
-      { name: "PROGRAMADO", detail: "Programación registrada" },
-      { name: "CONDUCTOR ASIGNADO", detail: item.driver || "Pendiente" },
-      { name: "DESPACHADO", detail: "Salida desde el origen" },
-      { name: "EN TRÁNSITO", detail: "Recorrido operativo" },
-      { name: "RECIBIDO", detail: "Llegada al destino" },
-      { name: "FINALIZADO", detail: "Operación cerrada" }
-    ];
-    var current = Math.max(0, Math.min(Number(item.step) || 0, stages.length - 1));
-    return stages.map(function (stage, index) {
-      var state = index < current ? "is-complete" : index === current ? "is-current" : "";
-      var stateLabel = index < current ? "Completado" : index === current ? "Etapa actual" : "Pendiente";
-      return '<div class="vehicle-journey-step ' + state + '"><span class="vehicle-journey-dot" aria-hidden="true"></span><span class="vehicle-journey-copy"><strong>' + stage.name + '</strong><span>' + stateLabel + ' · ' + escapeHtml(stage.detail) + '</span></span></div>';
-    }).join("");
-  }
-
   function detailContent(item) {
     var containerHref = linkedContainerHref(item);
     var status = statusMeta(item.status);
@@ -518,8 +473,7 @@
       '</div></section>',
       item.container ? '<section class="sial-query-detail-section"><h3>Relación vehículo + contenedor</h3><a class="sial-query-related-link" href="' + escapeHtml(containerHref) + '"><span class="sial-query-related-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M8 11h8"/></svg></span><span class="sial-query-related-copy"><small>CONTENEDOR ASOCIADO</small><strong>' + escapeHtml(item.container) + '</strong><span>' + escapeHtml([item.containerType, item.containerScheduleId].filter(Boolean).join(" · ")) + '</span></span><svg class="sial-icon sial-query-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></section>' : '<section class="sial-query-detail-section"><div class="sial-status warning"><div class="sial-feedback-copy"><strong>Sin contenedor asociado</strong><p>Esta operación de vehículo aún no tiene un contenedor relacionado.</p></div></div></section>',
       '<section class="sial-query-detail-section"><h3>Ruta programada</h3>' + routeTemplate(item, true) + '</section>',
-      '<section class="sial-query-detail-section"><h3>Estado del recorrido</h3><div class="vehicle-journey">' + journeyRows(item) + '</div></section>',
-      '<section class="sial-query-detail-section vehicle-evidence-section"><div class="vehicle-section-heading"><div><h3>Trazabilidad y evidencias</h3><p>Registro cronológico de eventos y fotografías del recorrido.</p></div><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4z"/><circle cx="12" cy="12" r="3"/><path d="m8 7 1-2h6l1 2"/></svg></div>' + traceEvidenceTemplate(item) + '</section>',
+      '<section class="sial-query-detail-section vehicle-evidence-section"><div class="vehicle-section-heading"><div><h3>Recorrido y evidencias</h3><p>Un solo timeline con los estados operativos y sus registros fotográficos.</p></div><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4z"/><circle cx="12" cy="12" r="3"/><path d="m8 7 1-2h6l1 2"/></svg></div>' + traceEvidenceTemplate(item) + '</section>',
       '<section class="sial-query-detail-section"><h3>Información operativa</h3>',
       '<div class="sial-list-row"><strong>Transportadora</strong><span>' + escapeHtml(item.carrier || "--") + '</span></div>',
       '<div class="sial-list-row"><strong>Fecha programada</strong>' + dateTimeTemplate(item.scheduledAt, "Fecha programada") + '</div>',
