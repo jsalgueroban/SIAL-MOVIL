@@ -13,6 +13,7 @@
   var vehicles = [];
   var retryRequested = false;
   var pendingDetailId = "";
+  var evidenceDetail = null;
 
   function $(selector, root) {
     return (root || document).querySelector(selector);
@@ -208,19 +209,115 @@
     ];
   }
 
+  function vehicleTraceEvents(item, index) {
+    if (Array.isArray(item.events)) return item.events;
+
+    var programmed = {
+      id: item.id + "-programacion",
+      title: "Programación del recorrido",
+      at: item.scheduledAt,
+      location: item.origin,
+      user: "Planeación de transporte",
+      status: "Registrado",
+      severity: "info",
+      summary: "Se programó el vehículo para atender la operación " + item.id + ".",
+      evidences: []
+    };
+    if ((Number(item.step) || 0) === 0) return [programmed];
+
+    var departureAt = new Date(item.scheduledAt || item.updatedAt);
+    departureAt.setMinutes(departureAt.getMinutes() + 24);
+    var departureEvidence = {
+      id: "EVD-" + String(4100 + index * 10 + 1),
+      title: "Vehículo habilitado para salida",
+      checkpoint: "Control de acceso · " + item.origin,
+      status: "Conforme",
+      type: "success",
+      author: "Operador de portería",
+      date: departureAt.toISOString(),
+      sync: "Sincronizada",
+      note: "Placa, conductor y condición externa validados antes del despacho.",
+      image: "../assets/login/Imagen 1.jpg"
+    };
+    var events = [programmed, {
+      id: item.id + "-salida",
+      title: "Salida confirmada",
+      at: departureAt.toISOString(),
+      location: item.origin,
+      user: "Operador de portería",
+      status: "Completado",
+      severity: "success",
+      summary: "El vehículo superó el control de salida e inició el recorrido.",
+      evidences: [departureEvidence]
+    }];
+
+    if ((Number(item.step) || 0) >= 3) {
+      events.push({
+        id: item.id + "-transito",
+        title: "Control durante el recorrido",
+        at: item.status === "EN_TRANSITO" ? item.updatedAt : departureAt.toISOString(),
+        location: item.direction === "ENTRADA" ? "Corredor Zona Externa – finca" : "Corredor finca – Zona Externa",
+        user: item.driver,
+        status: index === 1 ? "Con novedad" : "Conforme",
+        severity: index === 1 ? "warning" : "success",
+        summary: index === 1 ? "Se registró una novedad visual pendiente de validación." : "Seguimiento operativo sin novedades reportadas.",
+        evidences: [{
+          id: "EVD-" + String(4100 + index * 10 + 2),
+          title: index === 1 ? "Condición del contenedor" : "Control en ruta",
+          checkpoint: "Seguimiento de recorrido",
+          status: index === 1 ? "Por validar" : "Conforme",
+          type: index === 1 ? "warning" : "success",
+          author: item.driver,
+          date: item.updatedAt,
+          sync: index === 1 ? "Pendiente de sincronización" : "Sincronizada",
+          note: index === 1 ? "La evidencia fue capturada sin conexión y requiere validación operativa." : "Registro fotográfico asociado al último punto de control.",
+          image: "../assets/login/Imagen 4.jpg"
+        }]
+      });
+    }
+
+    if ((Number(item.step) || 0) >= 4) {
+      events.push({
+        id: item.id + "-recepcion",
+        title: "Recepción en destino",
+        at: item.updatedAt,
+        location: item.destination,
+        user: "Operador de recepción",
+        status: "Completado",
+        severity: "success",
+        summary: "El vehículo fue recibido y quedó disponible para la siguiente actividad.",
+        evidences: [{
+          id: "EVD-" + String(4100 + index * 10 + 3),
+          title: "Llegada al punto de destino",
+          checkpoint: "Control de acceso · " + item.destination,
+          status: "Conforme",
+          type: "success",
+          author: "Operador de recepción",
+          date: item.updatedAt,
+          sync: "Sincronizada",
+          note: "Llegada confirmada con validación visual del vehículo y el contenedor.",
+          image: "../assets/login/Imagen 1.jpg"
+        }]
+      });
+    }
+    return events;
+  }
+
   function readVehicles() {
     var stored = readJson(operationKey, []);
     var linkedContainers = readJson(containerScheduleKey, []);
     var source = Array.isArray(stored) && stored.length ? stored : sampleVehicles();
-    return source.map(function (item) {
+    return source.map(function (item, index) {
       var linked = Array.isArray(linkedContainers) ? linkedContainers.find(function (container) {
         return container.vehicleOperationId === item.id || container.vehiclePlate === item.plate || container.container === item.container;
       }) : null;
-      return Object.assign({}, item, {
+      var normalized = Object.assign({}, item, {
         containerScheduleId: item.containerScheduleId || (linked && linked.id) || "",
         container: item.container || (linked && linked.container) || "",
         containerType: item.containerType || (linked && linked.type) || ""
       });
+      normalized.events = vehicleTraceEvents(normalized, index);
+      return normalized;
     });
   }
 
@@ -270,13 +367,20 @@
     ].join("");
   }
 
-  function traceRows(item) {
-    return [
-      { label: "Programación", detail: item.schedule || "Programación operativa", at: item.scheduledAt },
-      { label: item.stage || "Último evento", detail: "Último evento confirmado", at: item.updatedAt }
-    ].filter(function (event) { return !Number.isNaN(new Date(event.at || "").getTime()); }).map(function (event) {
-      return '<div class="sial-trace-event"><span class="sial-trace-event-icon" aria-hidden="true"></span><span class="sial-trace-event-copy"><strong>' + escapeHtml(event.label) + '</strong><span>' + escapeHtml(event.detail) + '</span></span>' + dateTimeTemplate(event.at, event.label) + '</div>';
+  function traceEvidenceTemplate(item) {
+    var events = Array.isArray(item.events) ? item.events : [];
+    var total = events.reduce(function (sum, event) { return sum + (event.evidences || []).length; }, 0);
+    var rows = events.map(function (event) {
+      var evidences = Array.isArray(event.evidences) ? event.evidences : [];
+      var photos = evidences.length ? '<div class="vehicle-evidence-strip" aria-label="Evidencias de ' + escapeHtml(event.title) + '">' + evidences.map(function (evidence, photoIndex) {
+        var visual = evidence.image
+          ? '<img src="' + escapeHtml(evidence.image) + '" alt="' + escapeHtml(evidence.title) + '" loading="lazy">'
+          : '<span class="vehicle-evidence-missing" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m7 15 3-3 3 3 2-2 3 3"/></svg></span>';
+        return '<button class="vehicle-evidence-card" type="button" data-open-vehicle-evidence="' + escapeHtml(evidence.id) + '" data-vehicle-id="' + escapeHtml(item.id) + '" data-event-id="' + escapeHtml(event.id) + '"><span class="vehicle-evidence-image">' + visual + '<em class="' + escapeHtml(evidence.type) + '">' + escapeHtml(evidence.status) + '</em><b>' + String(photoIndex + 1).padStart(2, "0") + '/' + String(evidences.length).padStart(2, "0") + '</b></span><span class="vehicle-evidence-copy"><strong>' + escapeHtml(evidence.title) + '</strong><small>' + escapeHtml(formatHour(evidence.date)) + ' · ' + escapeHtml(evidence.id) + '</small></span></button>';
+      }).join("") + '</div>' : '<div class="vehicle-evidence-empty"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4z"/><path d="m8 13 2-2 3 3 2-2 2 2"/></svg><span><strong>Sin evidencia fotográfica</strong><small>Este evento no requiere una imagen para continuar.</small></span></div>';
+      return '<article class="vehicle-trace-event"><span class="vehicle-trace-marker ' + escapeHtml(event.severity || "info") + '" aria-hidden="true"></span><div class="vehicle-trace-event-body"><header><div><strong>' + escapeHtml(event.title) + '</strong><span>' + escapeHtml(event.location || "Ubicación no informada") + '</span></div><span class="sial-pill ' + escapeHtml(event.severity || "info") + '">' + escapeHtml(event.status || "Registrado") + '</span></header><div class="vehicle-trace-meta"><span>' + escapeHtml(formatDate(event.at)) + '</span><span>' + escapeHtml(event.user || "Usuario no informado") + '</span><b>' + evidences.length + (evidences.length === 1 ? " foto" : " fotos") + '</b></div><p>' + escapeHtml(event.summary || "Sin detalle adicional.") + '</p>' + photos + '</div></article>';
     }).join("");
+    return '<div class="vehicle-trace-summary"><span><strong>' + events.length + '</strong> eventos registrados</span><span><strong>' + total + '</strong> evidencias fotográficas</span></div><div class="vehicle-trace-list">' + rows + '</div>';
   }
 
   function linkedContainerHref(item) {
@@ -415,7 +519,7 @@
       item.container ? '<section class="sial-query-detail-section"><h3>Relación vehículo + contenedor</h3><a class="sial-query-related-link" href="' + escapeHtml(containerHref) + '"><span class="sial-query-related-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M8 11h8"/></svg></span><span class="sial-query-related-copy"><small>CONTENEDOR ASOCIADO</small><strong>' + escapeHtml(item.container) + '</strong><span>' + escapeHtml([item.containerType, item.containerScheduleId].filter(Boolean).join(" · ")) + '</span></span><svg class="sial-icon sial-query-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></section>' : '<section class="sial-query-detail-section"><div class="sial-status warning"><div class="sial-feedback-copy"><strong>Sin contenedor asociado</strong><p>Esta operación de vehículo aún no tiene un contenedor relacionado.</p></div></div></section>',
       '<section class="sial-query-detail-section"><h3>Ruta programada</h3>' + routeTemplate(item, true) + '</section>',
       '<section class="sial-query-detail-section"><h3>Estado del recorrido</h3><div class="vehicle-journey">' + journeyRows(item) + '</div></section>',
-      '<section class="sial-query-detail-section"><h3>Trazabilidad · fecha y hora</h3><div class="sial-trace-list">' + traceRows(item) + '</div></section>',
+      '<section class="sial-query-detail-section vehicle-evidence-section"><div class="vehicle-section-heading"><div><h3>Trazabilidad y evidencias</h3><p>Registro cronológico de eventos y fotografías del recorrido.</p></div><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4z"/><circle cx="12" cy="12" r="3"/><path d="m8 7 1-2h6l1 2"/></svg></div>' + traceEvidenceTemplate(item) + '</section>',
       '<section class="sial-query-detail-section"><h3>Información operativa</h3>',
       '<div class="sial-list-row"><strong>Transportadora</strong><span>' + escapeHtml(item.carrier || "--") + '</span></div>',
       '<div class="sial-list-row"><strong>Fecha programada</strong>' + dateTimeTemplate(item.scheduledAt, "Fecha programada") + '</div>',
@@ -438,6 +542,80 @@
       content: detailContent(item),
       actions: [{ label: "Cerrar", variant: "primary" }]
     });
+  }
+
+  function ensureEvidenceDetail() {
+    if (evidenceDetail) return evidenceDetail;
+    evidenceDetail = document.createElement("div");
+    evidenceDetail.className = "sial-modal-backdrop vehicle-evidence-detail-backdrop";
+    evidenceDetail.hidden = true;
+    evidenceDetail.setAttribute("data-vehicle-evidence-detail", "");
+    evidenceDetail.innerHTML = [
+      '<section class="sial-bottom-sheet vehicle-evidence-detail-sheet" role="dialog" aria-modal="true" aria-labelledby="vehicle-evidence-title">',
+      '<span class="vehicle-evidence-handle" aria-hidden="true"></span>',
+      '<header class="vehicle-evidence-detail-head"><div><span data-vehicle-evidence-counter>Evidencia</span><h2 id="vehicle-evidence-title" data-vehicle-evidence-title>Detalle de la evidencia</h2></div><button class="sial-btn sial-btn-icon" type="button" data-vehicle-evidence-close aria-label="Cerrar detalle"><svg class="sial-icon" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>',
+      '<div class="vehicle-evidence-detail-photo" data-vehicle-evidence-photo></div>',
+      '<div class="vehicle-evidence-detail-status"><span class="sial-pill info" data-vehicle-evidence-status>Registrada</span><span data-vehicle-evidence-sync>Sincronizada</span></div>',
+      '<dl class="vehicle-evidence-detail-meta"><div><dt>Evento</dt><dd data-vehicle-evidence-event></dd></div><div><dt>Fecha y hora</dt><dd data-vehicle-evidence-date></dd></div><div><dt>Punto de control</dt><dd data-vehicle-evidence-checkpoint></dd></div><div><dt>Registrada por</dt><dd data-vehicle-evidence-author></dd></div></dl>',
+      '<div class="vehicle-evidence-detail-note"><span>Observación</span><p data-vehicle-evidence-note></p></div>',
+      '<button class="sial-btn sial-btn-primary" type="button" data-vehicle-evidence-close>Cerrar evidencia</button>',
+      '</section>'
+    ].join("");
+    document.body.appendChild(evidenceDetail);
+    return evidenceDetail;
+  }
+
+  function findVehicleEvidence(vehicleId, eventId, evidenceId) {
+    var vehicle = vehicles.find(function (item) { return item.id === vehicleId; });
+    if (!vehicle) return null;
+    var traceEvent = (vehicle.events || []).find(function (item) { return item.id === eventId; });
+    if (!traceEvent) return null;
+    var evidence = (traceEvent.evidences || []).find(function (item) { return item.id === evidenceId; });
+    return evidence ? { event: traceEvent, evidence: evidence } : null;
+  }
+
+  function closeEvidenceDetail() {
+    var detail = ensureEvidenceDetail();
+    if (detail.hidden) return;
+    if (window.SialMobileUI && window.SialMobileUI.unmountModalLayer) window.SialMobileUI.unmountModalLayer(detail);
+    detail.hidden = true;
+  }
+
+  function openEvidenceDetail(button) {
+    var found = findVehicleEvidence(button.dataset.vehicleId, button.dataset.eventId, button.dataset.openVehicleEvidence);
+    if (!found) return;
+    var detail = ensureEvidenceDetail();
+    var item = found.evidence;
+    var photo = $("[data-vehicle-evidence-photo]", detail);
+    photo.innerHTML = item.image
+      ? '<img src="' + escapeHtml(item.image) + '" alt="' + escapeHtml(item.title) + '">'
+      : '<div class="vehicle-evidence-detail-missing"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m7 15 3-3 3 3 2-2 3 3"/></svg><strong>Imagen no disponible</strong><span>La información del registro se conserva.</span></div>';
+    var values = {
+      "[data-vehicle-evidence-counter]": item.id,
+      "[data-vehicle-evidence-title]": item.title,
+      "[data-vehicle-evidence-event]": found.event.title,
+      "[data-vehicle-evidence-date]": formatDate(item.date),
+      "[data-vehicle-evidence-checkpoint]": item.checkpoint,
+      "[data-vehicle-evidence-author]": item.author,
+      "[data-vehicle-evidence-note]": item.note,
+      "[data-vehicle-evidence-sync]": item.sync
+    };
+    Object.keys(values).forEach(function (selector) {
+      var node = $(selector, detail);
+      if (node) node.textContent = values[selector] || "No informado";
+    });
+    var status = $("[data-vehicle-evidence-status]", detail);
+    status.className = "sial-pill " + (item.type || "info");
+    status.textContent = item.status;
+    detail.hidden = false;
+    if (window.SialMobileUI && window.SialMobileUI.mountModalLayer) {
+      window.SialMobileUI.mountModalLayer(detail, {
+        panel: $(".vehicle-evidence-detail-sheet", detail),
+        initialFocus: "[data-vehicle-evidence-close]",
+        trigger: button,
+        onEscape: closeEvidenceDetail
+      });
+    }
   }
 
   function applyUrlContext() {
@@ -490,6 +668,16 @@
     $("[data-vehicle-list]").addEventListener("click", function (event) {
       var item = event.target.closest("[data-vehicle-id]");
       if (item) openDetail(item.getAttribute("data-vehicle-id"));
+    });
+    document.addEventListener("click", function (event) {
+      var evidence = event.target.closest("[data-open-vehicle-evidence]");
+      if (evidence) {
+        event.preventDefault();
+        event.stopPropagation();
+        openEvidenceDetail(evidence);
+        return;
+      }
+      if (event.target.closest("[data-vehicle-evidence-close]")) closeEvidenceDetail();
     });
   }
 
