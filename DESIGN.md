@@ -1,9 +1,9 @@
 ---
 name: SIAL Mobile Design System
-version: 1.1.0
+version: 1.2.0
 status: vigente
 language: es-CO
-lastUpdated: 2026-08-21
+lastUpdated: 2026-10-05
 owners:
   - Producto SIAL
   - Diseño UI/UX SIAL
@@ -39,14 +39,15 @@ Este documento no define:
 
 ## 2. Fuentes de verdad y resolución de conflictos
 
-Mientras la propuesta evoluciona, se aplica este orden:
+No existe una única fuente para todas las dimensiones:
 
-1. Decisión explícita y vigente aprobada por Producto SIAL.
-2. Este `DESIGN.md`.
-3. Librería compartida de la propuesta: `shared/sial-mobile-core.css`, `shared/sial-mobile-core.js` y `libreria/`.
-4. Pantallas maestras aprobadas.
-5. Estilos locales de una vista.
-6. Referencias externas de diseño.
+1. La HU, el backend y las decisiones aprobadas gobiernan la funcionalidad.
+2. Este `DESIGN.md` gobierna la intención visual y de experiencia móvil.
+3. `@banasandev/banasan-ui-mobile`, en la versión instalada, gobierna componentes, props, variantes y tokens nativos.
+4. La aplicación React Native/Expo gobierna rutas, navegación, permisos, dispositivo, offline y ciclo de vida.
+5. La propuesta gobierna exploración y composición aprobada, no implementación nativa.
+6. `shared/sial-mobile-core.css`, `shared/sial-mobile-core.js` y `libreria/` son adapters del prototipo.
+7. Las referencias externas solo aportan candidatos y nunca prevalecen sobre SIAL.
 
 Una vista local no crea por sí sola una nueva regla global. Si contradice la librería o este documento, debe revisarse antes de replicarla.
 
@@ -54,7 +55,24 @@ En React Native, el repositorio móvil vivo y sus dependencias instaladas gobier
 
 El inventario y la matriz de adopción viven en [`libreria/patrones-de-diseno-movil.md`](libreria/patrones-de-diseno-movil.md). Es obligatorio consultarlos antes de crear una composición local: distinguen entre componentes compartidos, composiciones de dominio y deuda de migración.
 
-### 2.1 Auditoría de madurez visual — 2026-08-21
+### 2.1 Sincronización con producto y librería
+
+La skill de propuestas genera `.sial-design-map/product-library-alignment.generated.json`
+y `.sial-design-map/product-library-drift.generated.md` desde la aplicación móvil, la
+librería móvil y esta propuesta. Esos artefactos registran identidad del paquete,
+versión, exports, imports, rutas, navegación, procedencia y adopción.
+
+Toda pieza reutilizable se clasifica como `library`, `library-variant`,
+`library-composition`, `feature-local`, `proposal-only`, `candidate`, `legacy` o
+`non-replicable`. Los adapters HTML declaran `data-sial-component`, `data-sial-source`
+y, cuando aplique, `data-sial-variant`; expresan intención y no simulan una API nativa.
+
+Los estados de adopción son `proposal-only`, `library-candidate`,
+`published-not-adopted`, `adopted-product-proposal-pending`, `aligned` y `validated`.
+Una dependencia al paquete Web, una ruta local inexistente o un componente equivalente
+por nombre se registra como drift; no se presenta como adopción de la librería móvil.
+
+### 2.2 Auditoría de madurez visual — 2026-08-21
 
 La propuesta tiene dos generaciones visuales. Las vistas iniciales resuelven la tarea con el shell, cards, campos y feedback base. Las vistas recientes de evidencias, consulta contextual, pallets y ZE añaden contexto operacional, avance por etapas, selección verificable, capacidad y cierre explícito. La segunda generación es la referencia para nuevas vistas, sin obligar a rediseñar una vista existente fuera de su alcance.
 

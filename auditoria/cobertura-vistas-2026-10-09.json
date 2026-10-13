@@ -1,0 +1,1567 @@
+{
+  "snapshot": {
+    "date": "2026-10-09",
+    "platform": "mobile",
+    "proposal": "D:/Propuestas UI-UX/SIAL UI UX/SIAL Movil - Propuesta",
+    "product": "D:/SIAL/Repos/sial/.deploy/dev/fe-sial-mobile-native",
+    "product_ref": "origin/dev",
+    "product_commit": "5b8e63e3798fbeab1fff155f723e4085dccfcbad",
+    "hu_count": 358,
+    "proposal_views": 49,
+    "product_screens": 35,
+    "covered_product_routes": 27,
+    "unmatched_product_routes": 8,
+    "business_product_gaps": 4,
+    "categories": {
+      "referencia": 5,
+      "presente-en-ambos": 25,
+      "subflujo": 4,
+      "HU-candidata-alcance-pendiente": 2,
+      "propuesta-con-HU-sin-pantalla-propia": 9,
+      "soporte-navegación": 2,
+      "HU-retirada-o-vacia": 1,
+      "propuesta-sin-HU-identificada": 1
+    },
+    "limitations": [
+      "Presencia y correspondencia se comprobaron en código; no es QA funcional ni equivalencia visual.",
+      "El menú por rol proviene del backend y no se aportó snapshot runtime.",
+      "Las HUs candidatas y variantes están declaradas en notas; no se promueven como contrato definitivo."
+    ]
+  },
+  "views": [
+    {
+      "view": "demo-camara.html",
+      "title": "SIAL Movil - Demo Camara",
+      "category": "referencia",
+      "routes": [],
+      "hus": [
+        {
+          "id": 558,
+          "title": "HU558 | Registrar inspección interna del contenedor en ZE/Finca",
+          "state": "Done",
+          "revision": 34,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/558"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "entrada por confirmar",
+      "incoming": [],
+      "product_evidence": [],
+      "note": "Demo técnica, no pantalla operativa.",
+      "proposal_sha256": "f4d6c252b7606dd8e9e2f60cbf6c25c1374166a691a82b1334b90f182d52985e"
+    },
+    {
+      "view": "index.html",
+      "title": "SIAL Movil - Login institucional",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/login"
+      ],
+      "hus": [
+        {
+          "id": 245,
+          "title": "HU245 | Desarrollo de login, seguridad, logout y recovery password",
+          "state": "Done",
+          "revision": 25,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/245"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "shared/sial-mobile-core.js:1042"
+      ],
+      "product_evidence": [
+        "src/app/(auth)/login.tsx:1: import { Login } from \"@features/auth/login\";"
+      ],
+      "note": "",
+      "proposal_sha256": "a1875ccd06a333e91f3160e4159ae711220f0bf05feca26f17fdfa7d696e61ad"
+    },
+    {
+      "view": "app/home.html",
+      "title": "SIAL Móvil - Mi jornada",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/dashboard"
+      ],
+      "hus": [
+        {
+          "id": 1454,
+          "title": "HU1454 | Separación y Creación del Menú Exclusivo para Mobile",
+          "state": "Done",
+          "revision": 19,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/1454"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "app/seleccion-finca.html:1",
+        "finca/cierre-contenedor.html:1",
+        "finca/consulta-contenedores.html:17",
+        "finca/consulta-pallets.html:18",
+        "finca/consulta-vehiculos.html:17",
+        "finca/despacho-ze.html:16",
+        "finca/inspeccion-externa.html:15",
+        "finca/inspeccion-interna.html:15",
+        "finca/recepcion-finca.html:111",
+        "finca/sesion-responsabilidad.html:1",
+        "libreria/index.html:1",
+        "pallets/armar-pallet.html:16",
+        "pallets/cargar-pallets.html:142",
+        "pallets/consulta-pallets.html:17",
+        "puerto-ze/despacho-finca.html:16",
+        "puerto-ze/entrega-puerto.html:1",
+        "puerto-ze/hu1431-despacho-contenedor-finca.html:20",
+        "puerto-ze/index.html:1",
+        "puerto-ze/inspeccion-externa.html:15",
+        "puerto-ze/inspeccion-interna.html:15",
+        "puerto-ze/recepcion-puerto.html:1",
+        "puerto-ze/recepcion-ze-retorno.html:15",
+        "puerto-ze/recepcion-ze.html:21",
+        "seguridad/credencial-offline.html:23",
+        "trazabilidad/consultar-contenedor.html:1",
+        "trazabilidad/consultar-operacion.html:1",
+        "trazabilidad/evidencias.html:16",
+        "trazabilidad/sincronizacion.html:16"
+      ],
+      "product_evidence": [
+        "src/app/(main)/dashboard.tsx:1: import { Dashboard } from \"@/features/dashboard/components/dashboard\";"
+      ],
+      "note": "",
+      "proposal_sha256": "e3990bdb47f64af6253198f497b3f8578058f274c244a3e6fc0b554880e16626"
+    },
+    {
+      "view": "app/seleccion-empresa.html",
+      "title": "SIAL Movil - Seleccion de empresa",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/selected-company"
+      ],
+      "hus": [
+        {
+          "id": 245,
+          "title": "HU245 | Desarrollo de login, seguridad, logout y recovery password",
+          "state": "Done",
+          "revision": 25,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/245"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "index.html:1",
+        "login/login-01-institucional.html:1",
+        "login/login-04-contexto-operativo.html:1",
+        "login/login-05-minimal-operativo.html:1",
+        "shared/sial-mobile-core.js:2576"
+      ],
+      "product_evidence": [
+        "src/app/(pre-auth)/selected-company/index.tsx:4: import { getOfflineCompaniesByUser } from \"@/features/auth/selected-company/rules/offline-selected-company.rules\";",
+        "src/app/(pre-auth)/selected-company/index.tsx:10: } from \"@features/auth/selected-company\";",
+        "src/app/(pre-auth)/selected-company/index.tsx:50: title=\"Selecciona una empresa\"",
+        "src/app/(pre-auth)/selected-company/index.tsx:51: subtitle=\"Elige una sola empresa para filtrar fincas y sectores\""
+      ],
+      "note": "",
+      "proposal_sha256": "96c3270d4e60ee4432d63f21c0d5ec29031634fd12c40b8f9c8e6f65b23fe341"
+    },
+    {
+      "view": "app/seleccion-finca.html",
+      "title": "SIAL Movil - Seleccion de finca",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/selected-farm"
+      ],
+      "hus": [
+        {
+          "id": 1916,
+          "title": "HU1916 | Estrategia Offline flujo 1 de trazabilidad e inspección en finca con un solo dispositivo",
+          "state": "In Progress",
+          "revision": 26,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/1916"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "app/seleccion-empresa.html:1"
+      ],
+      "product_evidence": [
+        "src/app/(pre-auth)/selected-farm/index.tsx:2: import { SelectedFarm } from \"@features/auth/selected-farm\";",
+        "src/app/(pre-auth)/selected-farm/index.tsx:8: title=\"Selecciona una finca\"",
+        "src/app/(pre-auth)/selected-farm/index.tsx:9: subtitle=\"Producción y transporte\""
+      ],
+      "note": "",
+      "proposal_sha256": "844e814a1ffa3308484992e6a74724bef312c8364f5f58050222b74bb6af18c5"
+    },
+    {
+      "view": "finca/cierre-contenedor.html",
+      "title": "SIAL Movil - Cierre de contenedor",
+      "category": "subflujo",
+      "routes": [
+        "/admin/container-loading"
+      ],
+      "hus": [
+        {
+          "id": 760,
+          "title": "HU760 | Registrar cierre del contenedor en finca",
+          "state": "Done",
+          "revision": 19,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/760"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "shared/sial-mobile-core.js:2339",
+        "shared/sial-mobile-flow.js:567"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/container-loading/index.tsx:3: import { ContainerLoadingScreen } from \"@/features/container-loading\";"
+      ],
+      "note": "Producto incluye ContainerSecurityCloseCard y finalClose; cierre embebido en cargue.",
+      "proposal_sha256": "aa7e7a9f9b6a2c89b1b8b9aa9610e3845ba2dff6dc6e30143bc94015b3c8d778"
+    },
+    {
+      "view": "finca/consulta-contenedores.html",
+      "title": "SIAL Móvil - Trazabilidad de contenedores",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/container-traceability"
+      ],
+      "hus": [
+        {
+          "id": 2362,
+          "title": "HU2362 | Consultar trazabilidad integral de finca, cajas, pallets y contenedor",
+          "state": "New",
+          "revision": 5,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/2362"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "app/home.html:130",
+        "finca/consulta-vehiculos.js:362",
+        "shared/sial-mobile-core.js:2333"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/container-traceability/index.tsx:9: } from \"@/features/container-traceability\";",
+        "src/app/(main)/admin/container-traceability/index.tsx:10: import type { ContainerTraceabilityDetail } from \"@/features/container-traceability\";",
+        "src/app/(main)/admin/container-traceability/index.tsx:11: import { ContainerTraceabilityService } from \"@/features/container-traceability/services/container-traceability.service\";"
+      ],
+      "note": "",
+      "proposal_sha256": "c6d425f0961ac10cb3ee92b39e350cbbc1b9b037e4b835ae5a4b6cfaff993179"
+    },
+    {
+      "view": "finca/consulta-pallets.html",
+      "title": "SIAL Móvil - Pallets por finca",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/farms/pallets/available"
+      ],
+      "hus": [
+        {
+          "id": 591,
+          "title": "HU591 | Armado de pallet mediante escaneo/digitado - MÓVIL",
+          "state": "Done",
+          "revision": 25,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/591"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "app/home.html:126",
+        "qa/mobile-farm-pallet-query-contract.js:42",
+        "qa/mobile-farm-pallet-query-contract.js:44",
+        "shared/sial-mobile-core.js:2334"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/farms/pallets/available/index.tsx:11: } from \"@/features/pallets\";"
+      ],
+      "note": "Consulta/disponibilidad de pallets; confirmar distinción frente a pallets/consulta-pallets.",
+      "proposal_sha256": "1f109cc96a441dc7e1f1f56b66474459dbe8a0c764ce91b64bea4e79b7c38218"
+    },
+    {
+      "view": "finca/consulta-vehiculos.html",
+      "title": "SIAL Móvil - Trazabilidad de vehículos",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/vehicle-traceability"
+      ],
+      "hus": [
+        {
+          "id": 302,
+          "title": "HU302 | Gestión de vehículos disponibles/No disponibles para la operación",
+          "state": "Done",
+          "revision": 71,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/302"
+        },
+        {
+          "id": 2359,
+          "title": "HU2359 | Consultar la línea de tiempo integral del transporte",
+          "state": "New",
+          "revision": 4,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/2359"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "app/home.html:134",
+        "finca/consulta-contenedores.js:245",
+        "shared/sial-mobile-core.js:2335"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/vehicle-traceability/index.tsx:10: } from \"@/features/vehicle-traceability\";",
+        "src/app/(main)/admin/vehicle-traceability/index.tsx:11: import type { VehicleTraceabilityDetail } from \"@/features/vehicle-traceability\";"
+      ],
+      "note": "",
+      "proposal_sha256": "9cf67946a08f1166f23a3b2a7bd6c11854fccf4dcde8952b722eed318f3e5a5c"
+    },
+    {
+      "view": "finca/despacho-ze.html",
+      "title": "SIAL Móvil - Salida de Finca",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/vehicle-movement/dispatches-vehicle-farm"
+      ],
+      "hus": [
+        {
+          "id": 761,
+          "title": "HU761 | Registrar despacho del vehículo desde finca",
+          "state": "Done",
+          "revision": 32,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/761"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "finca/cierre-contenedor.html:1",
+        "shared/sial-mobile-core.js:2340",
+        "shared/sial-mobile-flow.js:568"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/vehicle-movement/dispatches-vehicle-farm/index.tsx:4: import { RegisterDispatchVehicleZE, VehicleMovementType } from \"@/features/vehicle-movement\";",
+        "src/app/(main)/admin/vehicle-movement/dispatches-vehicle-farm/index.tsx:5: import { LocationVehicle } from \"@/features/vehicle-movement/types/location-vehicle\";",
+        "src/app/(main)/admin/vehicle-movement/dispatches-vehicle-farm/index.tsx:18: location={LocationVehicle.FARM}"
+      ],
+      "note": "",
+      "proposal_sha256": "3dee5e133e63f355c84bc09d3394d9b692fef38555f22006ff0003b85db86876"
+    },
+    {
+      "view": "finca/inspeccion-externa.html",
+      "title": "SIAL Móvil - Inspección externa finca",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/farms/management/external-inspection"
+      ],
+      "hus": [
+        {
+          "id": 557,
+          "title": "HU557 | Registrar inspección externa del contenedor en ZE/Finca",
+          "state": "Done",
+          "revision": 35,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/557"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "finca/recepcion-finca.html:140",
+        "shared/sial-mobile-core.js:2336",
+        "shared/sial-mobile-flow.js:562"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/farms/management/external-inspection/index.tsx:3: import { FarmExternalInspection } from \"@/features/farms/farm-inspections/external-inspection\";"
+      ],
+      "note": "",
+      "proposal_sha256": "8ff921d87f812ba51e118b3f9c6d4dcb1afbb168a6c4209e3045ac24e862d07d"
+    },
+    {
+      "view": "finca/inspeccion-interna.html",
+      "title": "SIAL Móvil - Inspección interna finca",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/farms/management/internal-inspection"
+      ],
+      "hus": [
+        {
+          "id": 558,
+          "title": "HU558 | Registrar inspección interna del contenedor en ZE/Finca",
+          "state": "Done",
+          "revision": 34,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/558"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "finca/inspeccion-externa.html:44",
+        "shared/sial-mobile-core.js:2337",
+        "shared/sial-mobile-flow.js:563"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/farms/management/internal-inspection/index.tsx:3: import { FarmInternalInspection } from \"@/features/farms/farm-inspections/internal-inspection\";"
+      ],
+      "note": "",
+      "proposal_sha256": "cf75c980049e76c37ff5df8e35d59fa8f71179d2eebc1cb993259d2f0a1f7950"
+    },
+    {
+      "view": "finca/recepcion-finca.html",
+      "title": "SIAL Movil - HU759 Ingreso en Finca",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/vehicle-movement/entry-vehicle-farm"
+      ],
+      "hus": [
+        {
+          "id": 759,
+          "title": "HU759 | Registrar ingreso de vehículo en finca - MÓVIL",
+          "state": "Done",
+          "revision": 48,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/759"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "shared/sial-mobile-core.js:2332",
+        "shared/sial-mobile-flow.js:561"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-farm/index.tsx:4: import { RegisterVehicleZE, VehicleMovementType } from \"@/features/vehicle-movement\";",
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-farm/index.tsx:5: import { LocationVehicle } from \"@/features/vehicle-movement/types/location-vehicle\";",
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-farm/index.tsx:18: location={LocationVehicle.FARM}"
+      ],
+      "note": "",
+      "proposal_sha256": "38876dade67a51e262b860f80237d227740b89d478e9f97be886a0f5590d2fe6"
+    },
+    {
+      "view": "finca/sesion-responsabilidad.html",
+      "title": "SIAL Movil - Sesion de responsabilidad",
+      "category": "HU-candidata-alcance-pendiente",
+      "routes": [],
+      "hus": [
+        {
+          "id": 760,
+          "title": "HU760 | Registrar cierre del contenedor en finca",
+          "state": "Done",
+          "revision": 19,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/760"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "finca/inspeccion-interna.html:44",
+        "shared/sial-mobile-core.js:2338",
+        "shared/sial-mobile-flow.js:564"
+      ],
+      "product_evidence": [],
+      "note": "Captura firmas conductor/supervisor. HU760 es contexto candidato; no se encontró exigencia de una sesión independiente.",
+      "proposal_sha256": "3335fcb6e6feec15a44644ff5e239c15994887d275105763d810aa9f1b160688"
+    },
+    {
+      "view": "libreria/index.html",
+      "title": "SIAL Móvil - Librería de componentes",
+      "category": "referencia",
+      "routes": [],
+      "hus": [],
+      "hu_basis": "sin HU específica identificada",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "shared/sial-mobile-core.js:2381"
+      ],
+      "product_evidence": [],
+      "note": "",
+      "proposal_sha256": "ccb82de0260a5640fb1cf2d4b8ff0d55d7339e56e29470146fb3f9325f5681a1"
+    },
+    {
+      "view": "login/login-01-institucional.html",
+      "title": "SIAL Movil - Login institucional",
+      "category": "referencia",
+      "routes": [
+        "/login"
+      ],
+      "hus": [
+        {
+          "id": 245,
+          "title": "HU245 | Desarrollo de login, seguridad, logout y recovery password",
+          "state": "Done",
+          "revision": 25,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/245"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "entrada por confirmar",
+      "incoming": [],
+      "product_evidence": [
+        "src/app/(auth)/login.tsx:1: import { Login } from \"@features/auth/login\";"
+      ],
+      "note": "Alternativa institucional del login raíz.",
+      "proposal_sha256": "994df6fe6927513b15ba36058e9997e2bd5be1fa03d2185f63090753afdf510b"
+    },
+    {
+      "view": "login/login-04-contexto-operativo.html",
+      "title": "SIAL Movil - Login contexto operativo",
+      "category": "referencia",
+      "routes": [
+        "/login"
+      ],
+      "hus": [
+        {
+          "id": 245,
+          "title": "HU245 | Desarrollo de login, seguridad, logout y recovery password",
+          "state": "Done",
+          "revision": 25,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/245"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "entrada por confirmar",
+      "incoming": [],
+      "product_evidence": [
+        "src/app/(auth)/login.tsx:1: import { Login } from \"@features/auth/login\";"
+      ],
+      "note": "Alternativa visual.",
+      "proposal_sha256": "d4948bdfbbaa6afd330ad5befc606545d3878eed2c9819fedb9c21150958e28f"
+    },
+    {
+      "view": "login/login-05-minimal-operativo.html",
+      "title": "SIAL Movil - Login minimal operativo",
+      "category": "referencia",
+      "routes": [
+        "/login"
+      ],
+      "hus": [
+        {
+          "id": 245,
+          "title": "HU245 | Desarrollo de login, seguridad, logout y recovery password",
+          "state": "Done",
+          "revision": 25,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/245"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "entrada por confirmar",
+      "incoming": [],
+      "product_evidence": [
+        "src/app/(auth)/login.tsx:1: import { Login } from \"@features/auth/login\";"
+      ],
+      "note": "Alternativa visual.",
+      "proposal_sha256": "8df9e31096df21e4a90874f660cc0120879ec8b30e8825df5a2e07a467303329"
+    },
+    {
+      "view": "materiales/detalle-orden.html",
+      "title": "SIAL Movil - Detalle orden",
+      "category": "propuesta-con-HU-sin-pantalla-propia",
+      "routes": [],
+      "hus": [
+        {
+          "id": 670,
+          "title": "HU670 | Notificar digitalmente al conductor asignado sobre su despacho",
+          "state": "New",
+          "revision": 17,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/670"
+        },
+        {
+          "id": 681,
+          "title": "HU681 | Registrar la entrega efectiva de una orden desde la app móvil",
+          "state": "Approved",
+          "revision": 16,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/681"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "materiales/sial-mobile-materiales.js:88",
+        "materiales/sial-mobile-materiales.js:266"
+      ],
+      "product_evidence": [],
+      "note": "",
+      "proposal_sha256": "61c488448beb7af4abf173b396445dbd45d0ddc95d9f6be82292adf03f93cf3c"
+    },
+    {
+      "view": "materiales/index.html",
+      "title": "SIAL Movil - Materiales",
+      "category": "soporte-navegación",
+      "routes": [],
+      "hus": [],
+      "hu_basis": "sin HU específica identificada",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "materiales/sial-mobile-materiales.js:117",
+        "shared/sial-mobile-core.js:2358"
+      ],
+      "product_evidence": [],
+      "note": "",
+      "proposal_sha256": "bebdee6cb8b5b952ad5d73ec59eb29ec635163b6d5259e9e6240a3dd640e4e7d"
+    },
+    {
+      "view": "materiales/inventario-finca.html",
+      "title": "SIAL Movil - Inventario finca",
+      "category": "propuesta-con-HU-sin-pantalla-propia",
+      "routes": [],
+      "hus": [
+        {
+          "id": 662,
+          "title": "HU662 | Consultar disponibilidad de materiales cargada desde SAP/UNOE/finca",
+          "state": "Blocked",
+          "revision": 23,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/662"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "materiales/sial-mobile-materiales.js:88",
+        "shared/sial-mobile-core.js:2361"
+      ],
+      "product_evidence": [],
+      "note": "",
+      "proposal_sha256": "ff99c8878c63e2508dee4a9f7ad8867851be797fb697c677f99717e0992bca8e"
+    },
+    {
+      "view": "materiales/ordenes-asignadas.html",
+      "title": "SIAL Movil - Ordenes asignadas",
+      "category": "propuesta-con-HU-sin-pantalla-propia",
+      "routes": [],
+      "hus": [
+        {
+          "id": 670,
+          "title": "HU670 | Notificar digitalmente al conductor asignado sobre su despacho",
+          "state": "New",
+          "revision": 17,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/670"
+        },
+        {
+          "id": 681,
+          "title": "HU681 | Registrar la entrega efectiva de una orden desde la app móvil",
+          "state": "Approved",
+          "revision": 16,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/681"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "materiales/sial-mobile-materiales.js:88",
+        "materiales/sial-mobile-materiales.js:140",
+        "materiales/sial-mobile-materiales.js:153",
+        "shared/sial-mobile-core.js:2362"
+      ],
+      "product_evidence": [],
+      "note": "",
+      "proposal_sha256": "638a1e986f0b79c52e451481db5e10e803af9fdf61f73d64ce1656146abce785"
+    },
+    {
+      "view": "materiales/pallets.html",
+      "title": "SIAL Movil - Pallets",
+      "category": "HU-retirada-o-vacia",
+      "routes": [],
+      "hus": [
+        {
+          "id": 559,
+          "title": "HU559 | Visualizar inventario pallets completos/incompletos - Vista puerto mobile",
+          "state": "Removed",
+          "revision": 20,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/559"
+        },
+        {
+          "id": 560,
+          "title": "HU560 |",
+          "state": "New",
+          "revision": 18,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/560"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "shared/sial-mobile-core.js:2364"
+      ],
+      "product_evidence": [],
+      "note": "HU559 Removed y HU560 vacía. No usar como justificación de conservación.",
+      "proposal_sha256": "063d32296ba7995c1f4deafa4e4f934f6a8073e1a59deffb5f5f184ff4a46ce3"
+    },
+    {
+      "view": "materiales/pedido-adicional.html",
+      "title": "SIAL Móvil - Pedido adicional",
+      "category": "propuesta-con-HU-sin-pantalla-propia",
+      "routes": [],
+      "hus": [
+        {
+          "id": 666,
+          "title": "HU666 | Registrar y procesar pedidos adicionales de materiales",
+          "state": "New",
+          "revision": 13,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/666"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "materiales/sial-mobile-materiales.js:88",
+        "materiales/sial-mobile-materiales.js:268",
+        "shared/sial-mobile-core.js:2360"
+      ],
+      "product_evidence": [],
+      "note": "HU existe; confirmar canal antes de construir producto.",
+      "proposal_sha256": "5c18898738dc861d17ab4a033d7b1a1b8f1b3a64977474e05316fe71a4795d68"
+    },
+    {
+      "view": "materiales/pedido-sugerido.html",
+      "title": "SIAL Movil - Pedido sugerido",
+      "category": "propuesta-con-HU-sin-pantalla-propia",
+      "routes": [],
+      "hus": [
+        {
+          "id": 659,
+          "title": "HU659 | Generar pedido sugerido de materiales por finca",
+          "state": "In Progress",
+          "revision": 26,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/659"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "materiales/sial-mobile-materiales.js:88",
+        "materiales/sial-mobile-materiales.js:118",
+        "materiales/sial-mobile-materiales.js:120",
+        "shared/sial-mobile-core.js:2359"
+      ],
+      "product_evidence": [],
+      "note": "Consulta móvil requiere confirmar canal/rol; el pedido sugerido se administra en Web.",
+      "proposal_sha256": "e6309fd4f2fa58d871ee6b60da85ffdeae941094de593a5d867a8b0b2ebbbe7f"
+    },
+    {
+      "view": "materiales/pod.html",
+      "title": "SIAL Movil - POD",
+      "category": "propuesta-con-HU-sin-pantalla-propia",
+      "routes": [],
+      "hus": [
+        {
+          "id": 682,
+          "title": "HU682 | Capturar evidencia fotográfica y/o firma digital como POD",
+          "state": "In Progress",
+          "revision": 17,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/682"
+        },
+        {
+          "id": 683,
+          "title": "HU683 | Consultar la prueba de entrega asociada a una orden",
+          "state": "New",
+          "revision": 13,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/683"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "materiales/sial-mobile-materiales.js:279"
+      ],
+      "product_evidence": [],
+      "note": "",
+      "proposal_sha256": "5f0fed479c5fca0430d86ce6d0d58b78c7a82866ace0a26b5de4a2891f4e0ab7"
+    },
+    {
+      "view": "materiales/registrar-entrega.html",
+      "title": "SIAL Movil - Registrar entrega",
+      "category": "propuesta-con-HU-sin-pantalla-propia",
+      "routes": [],
+      "hus": [
+        {
+          "id": 681,
+          "title": "HU681 | Registrar la entrega efectiva de una orden desde la app móvil",
+          "state": "Approved",
+          "revision": 16,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/681"
+        },
+        {
+          "id": 547,
+          "title": "HU547 | Confirmar entrega de insumos en finca",
+          "state": "Approved",
+          "revision": 18,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/547"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "materiales/sial-mobile-materiales.js:140",
+        "materiales/sial-mobile-materiales.js:153",
+        "shared/sial-mobile-core.js:2363"
+      ],
+      "product_evidence": [],
+      "note": "",
+      "proposal_sha256": "545a53e106d6590482be236ee1ba5e58607630e19dceb226ae466200356df6a3"
+    },
+    {
+      "view": "pallets/armar-pallet.html",
+      "title": "SIAL Móvil - HU591 Armar pallet",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/farms/pallets/assembled"
+      ],
+      "hus": [
+        {
+          "id": 591,
+          "title": "HU591 | Armado de pallet mediante escaneo/digitado - MÓVIL",
+          "state": "Done",
+          "revision": 25,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/591"
+        },
+        {
+          "id": 2368,
+          "title": "HU2368 | Validar el armado de pallets en finca con el aviso de corte",
+          "state": "In Progress",
+          "revision": 26,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/2368"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "finca/sesion-responsabilidad.html:1",
+        "materiales/sial-mobile-materiales.js:156",
+        "pallets/reetiquetar-pallet.html:16",
+        "shared/sial-mobile-core.js:2347",
+        "shared/sial-mobile-flow.js:565"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/farms/pallets/assembled/index.tsx:12: } from \"@/features/pallets\";"
+      ],
+      "note": "",
+      "proposal_sha256": "ed5ac4398db9b72a0c0eacc373a618559f814dbd1ae6a58133cafdf0c5e2405a"
+    },
+    {
+      "view": "pallets/cargar-pallets.html",
+      "title": "SIAL Movil - HU332 Cargue de contenedor",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/container-loading"
+      ],
+      "hus": [
+        {
+          "id": 332,
+          "title": "HU332 | Registrar cargue del contenedor y camión en Finca - MÓVIL",
+          "state": "Done",
+          "revision": 72,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/332"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "shared/sial-mobile-core.js:2351",
+        "shared/sial-mobile-flow.js:566"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/container-loading/index.tsx:3: import { ContainerLoadingScreen } from \"@/features/container-loading\";"
+      ],
+      "note": "La propuesta muestra contenedor y posiciones; no representa el cargue de camión.",
+      "proposal_sha256": "ea6f9a943a49e6dfd33965266da2c50711902d41c249b79aa7c46409041f7ac7"
+    },
+    {
+      "view": "pallets/consulta-pallets.html",
+      "title": "SIAL Móvil - Consulta Pallet’s",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/farms/pallets/consult"
+      ],
+      "hus": [
+        {
+          "id": 591,
+          "title": "HU591 | Armado de pallet mediante escaneo/digitado - MÓVIL",
+          "state": "Done",
+          "revision": 25,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/591"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "qa/mobile-farm-pallet-query-contract.js:45",
+        "shared/sial-mobile-core.js:2349"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/farms/pallets/consult/index.tsx:12: } from \"@/features/pallets\";"
+      ],
+      "note": "",
+      "proposal_sha256": "07a3770447274041903053e7939b62a95da798fb59c84f452e0412957ea0b85f"
+    },
+    {
+      "view": "pallets/rearmar-pallet.html",
+      "title": "SIAL Móvil - HU344 Rearmar pallets en ZE",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/farms/pallets/reassemblies"
+      ],
+      "hus": [
+        {
+          "id": 344,
+          "title": "HU344 | Rearmar pallets por referencia en ZE (Puerto)",
+          "state": "In Progress",
+          "revision": 41,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/344"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "puerto-ze/hu342-descarga-pallets.html:155",
+        "puerto-ze/hu347-cargue-consolidado.html:16",
+        "qa/mobile-hu342-hu347-contract.js:42",
+        "qa/mobile-hu342-hu347-contract.js:68",
+        "shared/sial-mobile-core.js:2310",
+        "shared/sial-mobile-core.js:2321",
+        "shared/sial-mobile-core.js:2348",
+        "shared/sial-mobile-flow.js:571"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/farms/pallets/reassemblies/index.tsx:15: } from \"@/features/pallets/reassemblies\";"
+      ],
+      "note": "HU342/347 son pasos vecinos; HU344 origina el rearmado.",
+      "proposal_sha256": "7e6e8f28914864c39aa2e2d19e90c7ed834351a5c5f4f35c06c26b9baaba7c65"
+    },
+    {
+      "view": "pallets/reetiquetar-pallet.html",
+      "title": "SIAL Móvil - Re-etiquetado de pallet",
+      "category": "propuesta-con-HU-sin-pantalla-propia",
+      "routes": [],
+      "hus": [
+        {
+          "id": 593,
+          "title": "HU593 | Regenerar etiqueta de pallet tras modificación",
+          "state": "New",
+          "revision": 6,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/593"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "shared/sial-mobile-core.js:2350"
+      ],
+      "product_evidence": [],
+      "note": "HU593 es regeneración tras modificación; no basta la mención histórica HU591.",
+      "proposal_sha256": "5a1743b461ef1a8b3232aeb9f70ae72114e1a9e36a9334b52fc2722cc9afe89f"
+    },
+    {
+      "view": "puerto-ze/despacho-finca.html",
+      "title": "SIAL Móvil - Despacho a finca",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/vehicle-movement/dispatches-vehicle-ze"
+      ],
+      "hus": [
+        {
+          "id": 303,
+          "title": "HU303 | Registrar salida de contenedor desde ZE (Puerto) a finca",
+          "state": "Done",
+          "revision": 77,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/303"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "puerto-ze/index.html:1",
+        "shared/sial-mobile-core.js:2311",
+        "shared/sial-mobile-flow.js:560"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/vehicle-movement/dispatches-vehicle-ze/index.tsx:3: import { RegisterDispatchVehicleZE, VehicleMovementType } from \"@/features/vehicle-movement\";",
+        "src/app/(main)/admin/vehicle-movement/dispatches-vehicle-ze/index.tsx:4: import { LocationVehicle } from \"@/features/vehicle-movement/types/location-vehicle\";",
+        "src/app/(main)/admin/vehicle-movement/dispatches-vehicle-ze/index.tsx:15: location={LocationVehicle.PORT}"
+      ],
+      "note": "Movimiento del vehículo; diferenciar del despacho de contenedor HU1431.",
+      "proposal_sha256": "4881a074510d718f7d5ec66001262157590ed4b0596a6e0a16e5b0a0833d9629"
+    },
+    {
+      "view": "puerto-ze/despacho-puerto.html",
+      "title": "SIAL Móvil - Despacho a puerto",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/final-port-container-dispatch"
+      ],
+      "hus": [
+        {
+          "id": 350,
+          "title": "HU350 | Registrar despacho y salida del contenedor de ZE a Puerto",
+          "state": "In Progress",
+          "revision": 23,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/350"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "puerto-ze/hu347-cargue-consolidado.html:100",
+        "shared/sial-mobile-core.js:2323",
+        "shared/sial-mobile-flow.js:573"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/final-port-container-dispatch/index.tsx:3: import { RegisterDispatchContainer } from \"@features/dispatch-container\";",
+        "src/app/(main)/admin/final-port-container-dispatch/index.tsx:17: <RegisterDispatchContainer destination=\"FINAL_PORT\" />"
+      ],
+      "note": "HU350 origina salida a Puerto Final; HU347 es cargue anterior.",
+      "proposal_sha256": "9014db0599b1ce0daf5314a631e2eae09e9245fc2130fe1f9f7bb5629c850b77"
+    },
+    {
+      "view": "puerto-ze/entrega-puerto.html",
+      "title": "SIAL Movil - Entrega en puerto",
+      "category": "propuesta-sin-HU-identificada",
+      "routes": [],
+      "hus": [],
+      "hu_basis": "sin HU específica identificada",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "puerto-ze/recepcion-puerto.html:1",
+        "shared/sial-mobile-core.js:2325",
+        "shared/sial-mobile-flow.js:575"
+      ],
+      "product_evidence": [],
+      "note": "Propone EXPORTADO y liberación del vehículo; no se encontró HU inequívoca que cubra esa transición.",
+      "proposal_sha256": "2a5459b04450ee35f5d95a5f0dd813b531139d2c6e49df58ae5303214478a61a"
+    },
+    {
+      "view": "puerto-ze/hu1431-despacho-contenedor-finca.html",
+      "title": "SIAL Movil - HU1431 Despacho contenedor a finca",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/dispatch-container"
+      ],
+      "hus": [
+        {
+          "id": 1431,
+          "title": "HU1431 | Registrar despacho de contenedor desde ZE (Puerto) a finca",
+          "state": "Done",
+          "revision": 31,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/1431"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "puerto-ze/index.html:1",
+        "shared/sial-mobile-core.js:2312"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/dispatch-container/index.tsx:3: import { RegisterDispatchContainer } from \"@features/dispatch-container/components/register-dispatch-container\";"
+      ],
+      "note": "",
+      "proposal_sha256": "0c4c3ebc6925fbfa8eb63cfc1a0fb934c776391a8f6c11fa11d78738328da69b"
+    },
+    {
+      "view": "puerto-ze/hu342-descarga-pallets.html",
+      "title": "SIAL Móvil - HU342 Descarga de pallets en ZE",
+      "category": "subflujo",
+      "routes": [
+        "/admin/port-container-unloading",
+        "/admin/port-truck-unloading"
+      ],
+      "hus": [
+        {
+          "id": 342,
+          "title": "HU342 | Descargar pallets de contenedor/camión en ZE (Puerto)",
+          "state": "In Progress",
+          "revision": 40,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/342"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "pallets/rearmar-pallet.html:18",
+        "puerto-ze/recepcion-ze-retorno.html:22",
+        "qa/mobile-hu342-hu347-contract.js:45",
+        "shared/sial-mobile-core.js:2320",
+        "shared/sial-mobile-flow.js:570"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/port-container-unloading/index.tsx:3: import { PalletUnloadingScreen } from \"@/features/pallet-unloading\";",
+        "src/app/(main)/admin/port-truck-unloading/index.tsx:3: import { PalletUnloadingScreen } from \"@/features/pallet-unloading\";"
+      ],
+      "note": "Ambas rutas productivas usan PalletUnloadingScreen. Verificar selector/origen en propuesta.",
+      "proposal_sha256": "4e232d6de710c443fcbfd433f28c2fdafda11dcbee9de614e8321c1b1129c574"
+    },
+    {
+      "view": "puerto-ze/hu347-cargue-consolidado.html",
+      "title": "SIAL Móvil - HU347 Cargue consolidado ZE",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/port-container-loading"
+      ],
+      "hus": [
+        {
+          "id": 347,
+          "title": "HU347 | Registrar cargue del contenedor final consolidado ZE (Puerto)",
+          "state": "In Progress",
+          "revision": 41,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/347"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "pallets/rearmar-pallet.html:142",
+        "puerto-ze/despacho-puerto.html:15",
+        "qa/mobile-hu342-hu347-contract.js:46",
+        "shared/sial-mobile-core.js:2322",
+        "shared/sial-mobile-flow.js:572"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/port-container-loading/index.tsx:3: import { PortContainerLoadingScreen } from \"@/features/port-container-loading\";"
+      ],
+      "note": "",
+      "proposal_sha256": "318dc2a7488034ac0f73d1597a14d58aa9f506fea988d26da69ea9eb84a57ede"
+    },
+    {
+      "view": "puerto-ze/index.html",
+      "title": "SIAL Movil - Flujo ZE Puerto",
+      "category": "soporte-navegación",
+      "routes": [],
+      "hus": [],
+      "hu_basis": "sin HU específica identificada",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "shared/sial-mobile-core.js:2306"
+      ],
+      "product_evidence": [],
+      "note": "",
+      "proposal_sha256": "e4617f8f4815d73beb9c31a5fdbdf554e8983aa3466e6abf88d978febd4ec764"
+    },
+    {
+      "view": "puerto-ze/inspeccion-externa.html",
+      "title": "SIAL Móvil - Inspección externa ZE",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/port-inspections/external-inspection"
+      ],
+      "hus": [
+        {
+          "id": 557,
+          "title": "HU557 | Registrar inspección externa del contenedor en ZE/Finca",
+          "state": "Done",
+          "revision": 35,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/557"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "puerto-ze/index.html:1",
+        "shared/sial-mobile-core.js:2308",
+        "shared/sial-mobile-flow.js:558"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/port-inspections/external-inspection/index.tsx:7: } from \"@/features/containers/container\";",
+        "src/app/(main)/admin/port-inspections/external-inspection/index.tsx:8: import EvidencesInspection from \"@/features/ports/port-inspections/components/inspection-evidences\";",
+        "src/app/(main)/admin/port-inspections/external-inspection/index.tsx:9: import InfoContainerInspection from \"@/features/ports/port-inspections/components/inspection-info\";",
+        "src/app/(main)/admin/port-inspections/external-inspection/index.tsx:10: import OperationInspectionDetails from \"@/features/ports/port-inspections/components/operation-inspections-details\";",
+        "src/app/(main)/admin/port-inspections/external-inspection/index.tsx:11: import { LocationVehicle } from \"@/features/vehicle-movement/types/location-vehicle\";"
+      ],
+      "note": "",
+      "proposal_sha256": "e450a8d53d6f525de3309c44d0f8c0d0c286cb99d996a8d99c312958012c6891"
+    },
+    {
+      "view": "puerto-ze/inspeccion-interna.html",
+      "title": "SIAL Móvil - Inspección interna ZE",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/port-inspections/internal-inspection"
+      ],
+      "hus": [
+        {
+          "id": 558,
+          "title": "HU558 | Registrar inspección interna del contenedor en ZE/Finca",
+          "state": "Done",
+          "revision": 34,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/558"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "puerto-ze/index.html:1",
+        "shared/sial-mobile-core.js:2309",
+        "shared/sial-mobile-flow.js:559"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/port-inspections/internal-inspection/index.tsx:7: } from \"@/features/containers/container\";",
+        "src/app/(main)/admin/port-inspections/internal-inspection/index.tsx:8: import EvidencesInspection from \"@/features/ports/port-inspections/components/inspection-evidences\";",
+        "src/app/(main)/admin/port-inspections/internal-inspection/index.tsx:9: import InfoContainerInspection from \"@/features/ports/port-inspections/components/inspection-info\";",
+        "src/app/(main)/admin/port-inspections/internal-inspection/index.tsx:10: import OperationInspectionDetails from \"@/features/ports/port-inspections/components/operation-inspections-details\";",
+        "src/app/(main)/admin/port-inspections/internal-inspection/index.tsx:11: import { LocationVehicle } from \"@/features/vehicle-movement/types/location-vehicle\";"
+      ],
+      "note": "",
+      "proposal_sha256": "9091ccad9b8e891ed5958edd261dee63bab1992dc3e69a8dad3af4ac2bfb8069"
+    },
+    {
+      "view": "puerto-ze/recepcion-puerto.html",
+      "title": "SIAL Movil - Recepcion en puerto",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/vehicle-movement/entry-vehicle-final-port"
+      ],
+      "hus": [
+        {
+          "id": 348,
+          "title": "HU348 | Registrar recepción contenedor cargado en ZE o Puerto",
+          "state": "Done",
+          "revision": 26,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/348"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "puerto-ze/despacho-puerto.html:22",
+        "shared/sial-mobile-core.js:2324",
+        "shared/sial-mobile-flow.js:574"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-final-port/index.tsx:3: import { RegisterVehicleZE, VehicleMovementType } from \"@/features/vehicle-movement\";",
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-final-port/index.tsx:4: import { LocationVehicle } from \"@/features/vehicle-movement/types/location-vehicle\";",
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-final-port/index.tsx:15: location={LocationVehicle.FINAL_PORT}"
+      ],
+      "note": "",
+      "proposal_sha256": "b3b10c9771d0eafb1e595a977c56742546ee9c9e0bb2f2a18e8cf75bbc57035f"
+    },
+    {
+      "view": "puerto-ze/recepcion-ze-retorno.html",
+      "title": "SIAL Móvil - Recepción retorno ZE",
+      "category": "subflujo",
+      "routes": [
+        "/admin/vehicle-movement/entry-vehicle-ze"
+      ],
+      "hus": [
+        {
+          "id": 348,
+          "title": "HU348 | Registrar recepción contenedor cargado en ZE o Puerto",
+          "state": "Done",
+          "revision": 26,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/348"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "finca/despacho-ze.html:26",
+        "puerto-ze/hu342-descarga-pallets.html:16",
+        "shared/sial-mobile-core.js:2319",
+        "shared/sial-mobile-flow.js:569"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-ze/index.tsx:3: import { RegisterVehicleZE, VehicleMovementType } from \"@/features/vehicle-movement\";",
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-ze/index.tsx:4: import { LocationVehicle } from \"@/features/vehicle-movement/types/location-vehicle\";",
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-ze/index.tsx:15: location={LocationVehicle.PORT}"
+      ],
+      "note": "Recepción de carga en retorno, variante dentro del movimiento. HU342 es descarga posterior.",
+      "proposal_sha256": "31506939ddc56dce55819227f8be88668017a935d7f8549716c21441f222ef4f"
+    },
+    {
+      "view": "puerto-ze/recepcion-ze.html",
+      "title": "SIAL Móvil - Recepción de vehículo en ZE",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/vehicle-movement/entry-vehicle-ze"
+      ],
+      "hus": [
+        {
+          "id": 758,
+          "title": "HU758 | Registrar recepción del vehículo en ZE (Puerto) - Ingreso",
+          "state": "Done",
+          "revision": 66,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/758"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "app/home.html:62",
+        "puerto-ze/index.html:1",
+        "shared/sial-mobile-core.js:2307",
+        "shared/sial-mobile-flow.js:557"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-ze/index.tsx:3: import { RegisterVehicleZE, VehicleMovementType } from \"@/features/vehicle-movement\";",
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-ze/index.tsx:4: import { LocationVehicle } from \"@/features/vehicle-movement/types/location-vehicle\";",
+        "src/app/(main)/admin/vehicle-movement/entry-vehicle-ze/index.tsx:15: location={LocationVehicle.PORT}"
+      ],
+      "note": "",
+      "proposal_sha256": "f0ff569007ba4e43c5e52232cc622089a2eacd1a7c0866c764ee5029596ba761"
+    },
+    {
+      "view": "seguridad/credencial-offline.html",
+      "title": "SIAL Móvil - Acceso sin conexión",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/auth/pat"
+      ],
+      "hus": [
+        {
+          "id": 1916,
+          "title": "HU1916 | Estrategia Offline flujo 1 de trazabilidad e inspección en finca con un solo dispositivo",
+          "state": "In Progress",
+          "revision": 26,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/1916"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "app/home.html:142"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/auth/pat.tsx:1: import { CreateOfflinePat } from \"@/features/auth/PAT\";"
+      ],
+      "note": "",
+      "proposal_sha256": "28f1bab84c2fa5872383290073a85404a7793e64164f2519865a3c4c7a0c28bd"
+    },
+    {
+      "view": "trazabilidad/consultar-contenedor.html",
+      "title": "SIAL Movil - Trazabilidad contenedor",
+      "category": "subflujo",
+      "routes": [
+        "/admin/container-traceability"
+      ],
+      "hus": [
+        {
+          "id": 2362,
+          "title": "HU2362 | Consultar trazabilidad integral de finca, cajas, pallets y contenedor",
+          "state": "New",
+          "revision": 5,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/2362"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "app/home.html:76",
+        "puerto-ze/entrega-puerto.html:1",
+        "shared/sial-mobile-core.js:2373",
+        "shared/sial-mobile-flow.js:580"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/container-traceability/index.tsx:9: } from \"@/features/container-traceability\";",
+        "src/app/(main)/admin/container-traceability/index.tsx:10: import type { ContainerTraceabilityDetail } from \"@/features/container-traceability\";",
+        "src/app/(main)/admin/container-traceability/index.tsx:11: import { ContainerTraceabilityService } from \"@/features/container-traceability/services/container-traceability.service\";"
+      ],
+      "note": "Detalle contextual del listado de contenedores.",
+      "proposal_sha256": "e1107f212c53ceb6b8c015f62ee964ea8fcc2091c9fb96d511254c030e69000f"
+    },
+    {
+      "view": "trazabilidad/consultar-operacion.html",
+      "title": "SIAL Movil - Consulta de operacion",
+      "category": "HU-candidata-alcance-pendiente",
+      "routes": [],
+      "hus": [
+        {
+          "id": 2359,
+          "title": "HU2359 | Consultar la línea de tiempo integral del transporte",
+          "state": "New",
+          "revision": 4,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/2359"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "app/home.html:112",
+        "app/home.html:152",
+        "shared/sial-mobile-core.js:2374"
+      ],
+      "product_evidence": [],
+      "note": "HU2359 respalda línea de tiempo integral del transporte; alcance candidato.",
+      "proposal_sha256": "1d69e98d9e88b901bb2f893750bcc35541517537b6182d01c436c32bfee13101"
+    },
+    {
+      "view": "trazabilidad/evidencias.html",
+      "title": "SIAL Móvil - Expediente operativo",
+      "category": "propuesta-con-HU-sin-pantalla-propia",
+      "routes": [],
+      "hus": [
+        {
+          "id": 363,
+          "title": "HU363 | Consultar evidencias de los contenedores",
+          "state": "Done",
+          "revision": 44,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/363"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "shared/sial-mobile-core.js:2372"
+      ],
+      "product_evidence": [],
+      "note": "Puede ser consulta contextual embebida; no hay ruta propia en este corte.",
+      "proposal_sha256": "93165c7b600b2b2ae3a2782b440ff444ce434424e788a037b2f643df73155334"
+    },
+    {
+      "view": "trazabilidad/sincronizacion.html",
+      "title": "SIAL Móvil - Sincronización",
+      "category": "presente-en-ambos",
+      "routes": [
+        "/admin/synchronization"
+      ],
+      "hus": [
+        {
+          "id": 1916,
+          "title": "HU1916 | Estrategia Offline flujo 1 de trazabilidad e inspección en finca con un solo dispositivo",
+          "state": "In Progress",
+          "revision": 26,
+          "url": "https://dev.azure.com/banasanti/Proyecto%20SIAL/_workitems/edit/1916"
+        }
+      ],
+      "hu_basis": "contraste funcional/manual con Azure; no certifica cobertura de criterios",
+      "access": "referencia de entrada detectada",
+      "incoming": [
+        "app/home.html:83",
+        "app/home.html:138",
+        "shared/sial-mobile-core.js:2371"
+      ],
+      "product_evidence": [
+        "src/app/(main)/admin/synchronization/index.tsx:2: import { PreloadEngineService } from \"@/features/preload-engine\";",
+        "src/app/(main)/admin/synchronization/index.tsx:14: } from \"@/features/synchronization\";"
+      ],
+      "note": "",
+      "proposal_sha256": "d6512a695df24aad6d7671b0bafe201dad6cea3a3f3864ef672bc3d22278b0ad"
+    }
+  ],
+  "product_only": [
+    {
+      "route": "/pat",
+      "file": "src/app/(auth)/pat.tsx",
+      "hash": "99f87fb520d17f84faa1dac12e36651ee83011d57f19e8878644f49608b645cb",
+      "evidence": [
+        "src/app/(auth)/pat.tsx:1: import { PatLogin } from \"@/features/auth/PAT\";"
+      ],
+      "placeholder": false,
+      "category": "producto-sin-propuesta",
+      "note": "Ingreso mediante credencial offline. La propuesta de creación de credencial no cubre el login PAT.",
+      "hus": [
+        {
+          "id": 1916,
+          "title": "HU1916 | Estrategia Offline flujo 1 de trazabilidad e inspección en finca con un solo dispositivo",
+          "state": "In Progress"
+        }
+      ]
+    },
+    {
+      "route": "/admin/audit/poma",
+      "file": "src/app/(main)/admin/audit/poma/index.tsx",
+      "hash": "34d4d450e0a963e7a84c0d3d3de91e10b79efe28eec9ab42e4f1db4217d7b848",
+      "evidence": [
+        "src/app/(main)/admin/audit/poma/index.tsx:3: import { PomaScreen } from \"@/features/poma\";"
+      ],
+      "placeholder": false,
+      "category": "producto-sin-propuesta",
+      "note": "Consulta y generación POMA en móvil; HU337 vigente prioriza generación Web y consulta móvil por rol. Resolver diferencia de canal.",
+      "hus": [
+        {
+          "id": 337,
+          "title": "HU337 | Generar documento POMA",
+          "state": "Done"
+        }
+      ]
+    },
+    {
+      "route": "/admin/farms-sectors",
+      "file": "src/app/(main)/admin/farms-sectors/index.tsx",
+      "hash": "06e5e69466bd208e15bc47a02b4753b2760e805c6cc4a6fbaad083bd5aa099eb",
+      "evidence": [],
+      "placeholder": true,
+      "category": "placeholder-producto",
+      "note": "Archivo sin interfaz operativa; no genera una brecha de negocio automáticamente.",
+      "hus": []
+    },
+    {
+      "route": "/admin/farms",
+      "file": "src/app/(main)/admin/farms/index.tsx",
+      "hash": "0331e1aaaf1790261b6e2219183db155874a2fec8c4f90048adecc986e4db907",
+      "evidence": [
+        "src/app/(main)/admin/farms/index.tsx:1: import { ManagementFarms } from \"@features/farms/management\";"
+      ],
+      "placeholder": false,
+      "category": "placeholder-producto",
+      "note": "ManagementFarms solo renderiza “Prueba de Enrutamiento”; no es una maestra móvil implementada.",
+      "hus": []
+    },
+    {
+      "route": "/admin/synchronization/users",
+      "file": "src/app/(main)/admin/synchronization/users.tsx",
+      "hash": "8edcfeeb7029dd920cf6f9bdd753386e89eea48e552144b8c0af6a26dd366cec",
+      "evidence": [
+        "src/app/(main)/admin/synchronization/users.tsx:5: } from \"@/features/session/repositories/session-local-auth.repository\";"
+      ],
+      "placeholder": false,
+      "category": "herramienta-técnica-producto",
+      "note": "Consulta getDebugSnapshot de autenticación local; evaluar si debe exponerse a negocio antes de proponer una vista.",
+      "hus": [
+        {
+          "id": 1916,
+          "title": "HU1916 | Estrategia Offline flujo 1 de trazabilidad e inspección en finca con un solo dispositivo",
+          "state": "In Progress"
+        }
+      ]
+    },
+    {
+      "route": "/admin/truck-loading",
+      "file": "src/app/(main)/admin/truck-loading/index.tsx",
+      "hash": "97d18dd9cee4bd8b9bc105b7ca3619ad47e9b99ed24fae2ec5771f8e854c2ee2",
+      "evidence": [
+        "src/app/(main)/admin/truck-loading/index.tsx:3: import { TruckLoadingScreen } from \"@/features/truck-loading\";"
+      ],
+      "placeholder": false,
+      "category": "producto-sin-propuesta",
+      "note": "Cargue de camión separado del contenedor. La propuesta solo ofrece posiciones/cargue de contenedor.",
+      "hus": [
+        {
+          "id": 332,
+          "title": "HU332 | Registrar cargue del contenedor y camión en Finca - MÓVIL",
+          "state": "Done"
+        }
+      ]
+    },
+    {
+      "route": "/admin/vehicle-movement/dispatches-vehicle-final-port",
+      "file": "src/app/(main)/admin/vehicle-movement/dispatches-vehicle-final-port/index.tsx",
+      "hash": "3baa3d2a1a665eb6a8e724ac6a56ccdbcb32fc5c83bd57b6032f43e537216fd9",
+      "evidence": [
+        "src/app/(main)/admin/vehicle-movement/dispatches-vehicle-final-port/index.tsx:3: import { RegisterDispatchVehicleZE, VehicleMovementType } from \"@/features/vehicle-movement\";",
+        "src/app/(main)/admin/vehicle-movement/dispatches-vehicle-final-port/index.tsx:4: import { LocationVehicle } from \"@/features/vehicle-movement/types/location-vehicle\";",
+        "src/app/(main)/admin/vehicle-movement/dispatches-vehicle-final-port/index.tsx:15: location={LocationVehicle.FINAL_PORT}"
+      ],
+      "placeholder": false,
+      "category": "producto-sin-propuesta",
+      "note": "Salida de vehículo desde Puerto Final. HU350 es contexto candidato, no fuente inequívoca de este hito.",
+      "hus": [
+        {
+          "id": 350,
+          "title": "HU350 | Registrar despacho y salida del contenedor de ZE a Puerto",
+          "state": "In Progress"
+        }
+      ]
+    },
+    {
+      "route": "/",
+      "file": "src/app/index.tsx",
+      "hash": "7065a60c9cb814a5a79c8ed9fadc24d10ad98bca6117e43595d244709a4932a3",
+      "evidence": [
+        "src/app/index.tsx:1: import { AuthGate } from \"@/features/session/components/auth-gate\";"
+      ],
+      "placeholder": false,
+      "category": "soporte-producto",
+      "note": "AuthGate resuelve entrada/sesión; no requiere una vista de propuesta independiente.",
+      "hus": []
+    }
+  ]
+}

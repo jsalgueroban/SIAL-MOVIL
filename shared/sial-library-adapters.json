@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0",
+  "platform": "mobile",
+  "library": "@banasandev/banasan-ui-mobile",
+  "adapters": [
+    { "component": "Button", "prototypeSelector": ".btn", "status": "published-not-adopted" },
+    { "component": "Card", "prototypeSelector": ".card", "status": "published-not-adopted" },
+    { "component": "Chip", "prototypeSelector": ".chip", "status": "published-not-adopted" },
+    { "component": "Notice", "prototypeSelector": ".notice", "status": "published-not-adopted" },
+    { "component": "TextInput", "prototypeSelector": "input[type='text']", "status": "published-not-adopted" },
+    { "component": "SelectInput", "prototypeSelector": "select", "status": "published-not-adopted" }
+  ]
+}
