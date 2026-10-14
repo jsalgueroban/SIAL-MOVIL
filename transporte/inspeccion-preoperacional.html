@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../assets/brand/isotipo-sial.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#005CA8">
+  <title>SIAL Móvil | Inspección preoperacional</title>
+  <script>document.documentElement.dataset.theme=localStorage.getItem("sial-mobile-theme")||"light";</script>
+  <link rel="stylesheet" href="../shared/sial-mobile-core.css">
+  <link rel="stylesheet" href="inspeccion-preoperacional.css">
+</head>
+<body>
+  <main class="sial-page preop-page">
+    <header class="sial-page-header">
+      <a class="sial-btn sial-btn-icon" href="../app/home.html" aria-label="Volver a Mi jornada"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+      <span class="sial-app-isotype" aria-hidden="true"><img src="../assets/brand/isotipo-sial.svg" alt=""></span>
+      <div class="sial-page-title"><h1>Preoperacional</h1><p>Inspección del vehículo</p></div>
+      <button class="sial-btn sial-btn-icon" type="button" data-theme-toggle aria-label="Cambiar tema"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 7 9 9 0 1 1-9-7Z"/></svg></button>
+    </header>
+    <div class="sial-page-body preop-body">
+      <section class="sial-card sial-card-pad preop-context" aria-labelledby="preop-context-title">
+        <div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M3 8h13v9H3zM16 11h3l2 3v3h-5z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span><div><h2 class="sial-section-title" id="preop-context-title">Vehículo a inspeccionar</h2><p>Selecciona el vehículo antes de iniciar.</p></div></div>
+        <div class="sial-field" data-sial-component="Select" data-sial-source="mobile-library-adapter"><label class="sial-label" for="preop-vehicle">Vehículo</label><select class="sial-input-wrap sial-input" id="preop-vehicle" required><option value="">Selecciona un vehículo</option><option value="TRK-421">TRK-421 · Tractomula</option><option value="CAM-102">CAM-102 · Camión rígido</option><option value="FLT-001">FLT-001 · Camión</option></select></div>
+        <dl class="preop-context-facts" id="preop-context-facts" hidden><div><dt>Tipo</dt><dd id="preop-type"></dd></div><div><dt>Conductor</dt><dd id="preop-driver"></dd></div><div><dt>Programación</dt><dd id="preop-program"></dd></div></dl>
+      </section>
+      <section class="sial-card sial-card-pad preop-progress" id="preop-progress" hidden aria-live="polite"><div class="preop-step-overview"><strong id="preop-progress-step">Paso 1 de 7 · Documentos</strong><span id="preop-progress-count">0 de 42 puntos</span></div><progress id="preop-progress-bar" max="42" value="0" aria-label="Puntos revisados"></progress><p id="preop-progress-findings">Sin novedades registradas</p></section>
+      <form class="sial-form preop-form" id="preop-form" hidden novalidate>
+        <div id="preop-sections"></div>
+        <section class="sial-card sial-card-pad preop-close" id="preop-close" aria-labelledby="preop-close-title" hidden><div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 9h8M8 13h8M8 17h5"/></svg></span><div><h2 class="sial-section-title" id="preop-close-title" tabindex="-1">Revisión final</h2><p>Confirma los hallazgos antes de terminar.</p></div></div><label class="sial-label" for="preop-general-note">Observación general</label><textarea class="sial-input-wrap sial-input" id="preop-general-note" rows="3" placeholder="Agrega contexto si es necesario"></textarea><div class="preop-actions"><button class="sial-btn sial-btn-secondary" type="button" id="preop-close-back" data-sial-component="Button" data-sial-source="mobile-library-adapter">Anterior</button><button class="sial-btn sial-btn-primary" type="submit" data-sial-component="Button" data-sial-source="mobile-library-adapter">Revisar inspección</button></div><button class="preop-save-link" type="button" id="preop-save" data-sial-component="Button" data-sial-source="mobile-library-adapter">Guardar borrador</button></section>
+      </form>
+      <section class="sial-card sial-card-pad preop-review" id="preop-review" hidden aria-labelledby="preop-review-title"><div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 9l2 2 4-4M8 16h8"/></svg></span><div><h2 class="sial-section-title" id="preop-review-title">Resumen de inspección</h2><p>Esta es una propuesta; no se envía al sistema.</p></div></div><div id="preop-review-content"></div><div class="preop-actions"><button class="sial-btn sial-btn-secondary" type="button" id="preop-edit">Volver a editar</button><button class="sial-btn sial-btn-primary" type="button" id="preop-finish">Guardar localmente</button></div></section>
+      <p class="preop-local-state" id="preop-local-state" role="status" hidden></p>
+    </div>
+  </main>
+  <script src="../shared/sial-mobile-core.js"></script>
+  <script src="inspeccion-preoperacional.js"></script>
+</body>
+</html>

@@ -3,6 +3,29 @@
     return window.SialMobileUI;
   }
 
+  function installToastDemo() {
+    const card = document.querySelector('[data-library-section="feedback"] [data-library-toast]')?.closest("article");
+    if (!card) return;
+    card.classList.add("library-toast-demo");
+    card.innerHTML = [
+      '<h3>Toast · feedback temporal</h3>',
+      '<p class="library-muted">Cuatro tonos de la librería móvil. Aparecen sin bloquear la tarea y se retiran automáticamente; un error que exige corrección también debe quedar junto al campo.</p>',
+      '<div class="library-toast-actions" aria-label="Variantes de toast">',
+      '<button class="sial-btn sial-btn-secondary" type="button" data-library-toast-tone="info">Información</button>',
+      '<button class="sial-btn sial-btn-secondary" type="button" data-library-toast-tone="success">Éxito</button>',
+      '<button class="sial-btn sial-btn-secondary" type="button" data-library-toast-tone="warning">Advertencia</button>',
+      '<button class="sial-btn sial-btn-secondary" type="button" data-library-toast-tone="error">Error</button>',
+      '</div>',
+      '<div class="library-toast-actions" aria-label="Interacciones de toast">',
+      '<button class="sial-btn sial-btn-ghost" type="button" data-library-toast-top>Mostrar arriba</button>',
+      '<button class="sial-btn sial-btn-ghost" type="button" data-library-toast-action>Con acción</button>',
+      '<button class="sial-btn sial-btn-ghost" type="button" data-library-toast-stack>Apilar</button>',
+      '<button class="sial-btn sial-btn-ghost" type="button" data-library-toast-hide>Ocultar</button>',
+      '</div>',
+      '<code>Toast / ToastProvider / useToast → SialMobileUI.showToast({ tone, title, message, action, duration, placement, offset })</code>'
+    ].join("");
+  }
+
   function activateBarcodeScannerPanels() {
     document.querySelectorAll(".sial-scan-panel").forEach((panel) => {
       panel.setAttribute("role", "button");
@@ -421,6 +444,7 @@
 
   function initializeLibraryDemos() {
     activateBarcodeScannerPanels();
+    if (uiReady()) installToastDemo();
     if (uiReady()) installAlertSystemDemo();
     if (uiReady()) installMotionMap();
     if (uiReady()) installTimePickerDemo();
@@ -485,14 +509,24 @@
       }, 900);
     }
 
-    if (event.target.closest("[data-library-toast]") && uiReady()) {
-      window.SialMobileUI.showToast({
-        type: "success",
-        icon: "ok",
-        title: "Toast flotante",
-        message: "Feedback temporal, no bloqueante y seguro para tareas rapidas."
-      });
+    const toastTone = event.target.closest("[data-library-toast-tone]");
+    if (toastTone && uiReady()) {
+      const tone = toastTone.dataset.libraryToastTone;
+      const labels = { info: "Información disponible", success: "Registro guardado", warning: "Revisión necesaria", error: "No se pudo completar" };
+      const messages = { info: "Puedes continuar con la consulta.", success: "Los cambios quedaron registrados.", warning: "Verifica los datos antes de continuar.", error: "Consulta el error junto al campo e inténtalo de nuevo." };
+      window.SialMobileUI.showToast({ tone, title: labels[tone], message: messages[tone] });
     }
+    if (event.target.closest("[data-library-toast-top]") && uiReady()) {
+      window.SialMobileUI.showToast({ tone: "info", title: "Aviso superior", message: "El host también admite posición superior.", placement: "top", offset: 20 });
+    }
+    if (event.target.closest("[data-library-toast-action]") && uiReady()) {
+      window.SialMobileUI.showToast({ tone: "warning", title: "Cambio pendiente", message: "Puedes deshacer esta acción.", duration: 5500, action: { label: "Deshacer", dismiss: true, onClick: function() { window.SialMobileUI.showToast({ tone: "info", title: "Cambio deshecho" }); } } });
+    }
+    if (event.target.closest("[data-library-toast-stack]") && uiReady()) {
+      window.SialMobileUI.showToast({ tone: "success", title: "Primera confirmación" });
+      window.SialMobileUI.showToast({ tone: "info", title: "Segunda notificación", message: "Ambas permanecen visibles temporalmente." });
+    }
+    if (event.target.closest("[data-library-toast-hide]") && uiReady()) window.SialMobileUI.hideToast();
 
     if (event.target.closest("[data-library-banner]") && uiReady()) {
       window.SialMobileUI.showBanner({

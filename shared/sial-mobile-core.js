@@ -1165,7 +1165,29 @@
     return region;
   }
 
+  function toastRegion(placement = "bottom", offset = 20) {
+    const position = placement === "top" ? "top" : "bottom";
+    let region = document.querySelector(`[data-toast-region="${position}"]`);
+    if (region) {
+      region.style.setProperty("--sial-toast-offset", `${Math.max(0, Number(offset) || 20)}px`);
+      return region;
+    }
+    if (position === "bottom") {
+      region = ensureToastRegion();
+      region.setAttribute("data-toast-region", "bottom");
+    } else {
+      region = document.createElement("div");
+      region.className = "sial-toast-region is-top";
+      region.setAttribute("data-toast-region", "top");
+      region.setAttribute("aria-live", "polite");
+      document.body.appendChild(region);
+    }
+    region.style.setProperty("--sial-toast-offset", `${Math.max(0, Number(offset) || 20)}px`);
+    return region;
+  }
+
   function normalizeType(type) {
+    if (type === "danger") return "error";
     return ["info", "success", "warning", "error"].includes(type) ? type : "info";
   }
 
@@ -1340,23 +1362,54 @@
   }
 
   function showToast(options = {}) {
-    const region = ensureToastRegion();
-    const type = normalizeType(options.type);
+    const region = toastRegion(options.placement, options.offset);
+    const type = normalizeType(options.tone || options.type);
     const toast = document.createElement("div");
     toast.className = `sial-toast ${type}`;
+    toast.setAttribute("data-sial-component", "Toast");
+    toast.setAttribute("data-sial-source", "@banasandev/banasan-ui-mobile");
+    toast.setAttribute("data-sial-variant", type);
     toast.setAttribute("role", type === "error" ? "alert" : "status");
     toast.setAttribute("aria-label", [feedbackTypeMeta(type).label, options.title, options.message].filter(Boolean).join(". "));
     const identity = createFeedbackIdentity(type, options);
     identity.classList.add("is-compact");
+    if (options.icon instanceof Node) identity.replaceChildren(options.icon.cloneNode(true));
     toast.appendChild(identity);
     appendFeedbackText(toast, options.title, options.message);
+    if (options.action && options.action.label) {
+      const action = document.createElement("button");
+      action.type = "button";
+      action.className = "sial-toast-action";
+      action.textContent = options.action.label;
+      action.addEventListener("click", function() {
+        if (typeof options.action.onClick === "function") options.action.onClick();
+        if (options.action.dismiss === true) dismiss();
+      });
+      toast.appendChild(action);
+    }
+    const visible = Array.from(region.querySelectorAll(".sial-toast:not(.is-dismissing)"));
+    if (visible.length >= 2 && typeof visible[0].dismissToast === "function") visible[0].dismissToast(true);
     region.appendChild(toast);
-    window.setTimeout(() => {
-      toast.style.opacity = "0";
-      toast.style.transform = "translateY(10px)";
-      window.setTimeout(() => toast.remove(), 180);
-    }, options.duration || 2800);
+    let dismissed = false;
+    const dismiss = function(immediate = false) {
+      if (dismissed) return;
+      dismissed = true;
+      window.clearTimeout(timer);
+      toast.classList.add("is-dismissing");
+      window.setTimeout(function() {
+        toast.remove();
+        if (typeof options.onDismiss === "function") options.onDismiss();
+      }, immediate || window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 180);
+    };
+    const timer = window.setTimeout(dismiss, Number(options.duration) > 0 ? Number(options.duration) : 2800);
+    toast.dismissToast = dismiss;
     return toast;
+  }
+
+  function hideToast() {
+    document.querySelectorAll(".sial-toast-region .sial-toast").forEach(function(toast) {
+      if (typeof toast.dismissToast === "function") toast.dismissToast();
+    });
   }
 
   function validationFieldLabel(field) {
@@ -2356,7 +2409,8 @@
       label: "Documentos",
       aria: "Navegacion documental",
       items: [
-        { href: "../poma/consulta-generacion.html", label: "HU337 - Consulta y generación POMA", icon: drawerIcon('<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h4"/><path d="M9 13h7"/><path d="M9 17h7"/>') }
+        { href: "../poma/consulta-generacion.html", label: "HU337 - Consulta y generación POMA", icon: drawerIcon('<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h4"/><path d="M9 13h7"/><path d="M9 17h7"/>') },
+        { href: "../transporte/inspeccion-preoperacional.html", label: "HU533 - Preoperacional del vehículo", icon: drawerIcon('<path d="M5 4h14v16H5z"/><path d="m8 11 2 2 5-5"/><path d="M8 17h8"/>') }
       ]
     },
     {
@@ -3269,6 +3323,7 @@
     requestSignOut,
     ensureHeaderSessionAction,
     showToast,
+    hideToast,
     setInlineStatus,
     revealValidationError,
     clearInlineStatus,

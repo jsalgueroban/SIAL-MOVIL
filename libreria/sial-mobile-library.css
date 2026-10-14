@@ -289,6 +289,17 @@ body .library-demo-card {
   gap: 12px;
 }
 
+.library-toast-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.library-toast-actions .sial-btn {
+  min-height: 44px;
+  flex: 1 1 125px;
+}
+
 .library-demo-card code {
   display: block;
   overflow-x: auto;
