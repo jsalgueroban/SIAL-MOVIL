@@ -102,9 +102,13 @@
     if (!$('#preop-vehicle').value) return;
     try {
       localStorage.setItem(storageKey, JSON.stringify(snapshot()));
-      if (!silent) $("#preop-local-state").textContent = "Borrador guardado en este navegador. Pendiente de sincronización; no modifica la disponibilidad del vehículo.";
+      if (!silent) {
+        $("#preop-local-state").textContent = "Esta copia permanece en este navegador; no se envía al sistema ni cambia la disponibilidad del vehículo.";
+        window.SialMobileUI?.showToast({ tone: "success", title: "Borrador guardado", message: "Puedes retomarlo en este navegador." });
+      }
     } catch {
-      $("#preop-local-state").textContent = "No fue posible guardar el borrador en este navegador.";
+      $("#preop-local-state").textContent = "No se pudo guardar la copia local. Comprueba el espacio y los permisos del navegador e inténtalo de nuevo.";
+      if (!silent) window.SialMobileUI?.showToast({ tone: "error", title: "No se pudo guardar", message: "Revisa la indicación al final del formulario." });
       silent = false;
     }
     if (!silent) $("#preop-local-state").hidden = false;

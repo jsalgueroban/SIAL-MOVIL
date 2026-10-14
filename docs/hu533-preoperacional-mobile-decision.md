@@ -8,6 +8,10 @@ El formulario inicial mostraba los 42 puntos en una sola página. Por indicació
 
 Delegación: `SELF`. Ajuste acotado a una vista y un repositorio; el contexto de interacción y su verificación son inseparables de la edición local.
 
+## Feedback de borrador · 14/10/2026
+
+Las acciones explícitas «Guardar borrador» y «Guardar localmente» usan el Toast compartido de la propuesta: éxito al persistir y error cuando falla el almacenamiento. El guardado automático al responder o avanzar no produce toasts repetitivos. La validación de puntos incompletos permanece inline, junto a la sección que debe corregirse. El mensaje persistente delimita que la copia es local y no sincroniza ni habilita el vehículo. Esta adopción es específica de HU533; no implica que el HTML sea el componente React Native productivo.
+
 ## Fuente y alcance
 
 - HU533 y tarea Azure 2594.
