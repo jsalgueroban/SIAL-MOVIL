@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../assets/brand/isotipo-sial.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#005CA8">
+  <title>SIAL Móvil | POMA</title>
+  <script>document.documentElement.dataset.theme = localStorage.getItem("sial-mobile-theme") || "light";</script>
+  <link rel="stylesheet" href="../shared/sial-mobile-core.css">
+  <link rel="stylesheet" href="consulta-generacion.css">
+</head>
+<body>
+  <main class="sial-page poma-page">
+    <header class="sial-page-header">
+      <a class="sial-btn sial-btn-icon" href="../app/home.html" aria-label="Volver a Mi jornada" data-nav-direction="back"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+      <span class="sial-app-isotype" aria-hidden="true"><img src="../assets/brand/isotipo-sial.svg" alt=""></span>
+      <div class="sial-page-title"><h1>Documento POMA</h1><p>Consulta y generación</p></div>
+      <button class="sial-btn sial-btn-icon" type="button" data-theme-toggle aria-label="Cambiar tema"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 7 9 9 0 1 1-9-7Z"/></svg></button>
+    </header>
+    <section class="sial-page-body poma-body">
+      <section class="sial-card sial-card-pad poma-search" aria-labelledby="poma-search-title">
+        <div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></span><div><h2 class="sial-section-title" id="poma-search-title">Buscar radicación</h2><p>Consulta los cargues relacionados antes de generar el documento.</p></div></div>
+        <form id="poma-search-form" novalidate>
+          <div class="sial-field" data-sial-component="TextInput" data-sial-source="mobile-library-adapter">
+            <label class="sial-label" for="poma-radication">Radicación</label>
+            <input class="sial-input-wrap sial-input" id="poma-radication" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="Ej. 2026047824" aria-describedby="poma-search-help poma-search-error" required>
+            <small id="poma-search-help">Ejemplo de prueba: 2026047824.</small>
+          </div>
+          <p class="poma-error" id="poma-search-error" role="alert" hidden></p>
+          <button class="sial-btn sial-btn-primary sial-btn-full" type="submit" data-sial-component="Button" data-sial-source="mobile-library-adapter"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>Buscar cargues</button>
+        </form>
+      </section>
+      <section class="sial-card sial-card-pad poma-stages" id="poma-stages" aria-labelledby="poma-stages-title" hidden>
+        <div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span><div><h2 class="sial-section-title" id="poma-stages-title">Cargues disponibles</h2><p>Selecciona el trayecto que deseas consultar.</p></div></div>
+        <div class="poma-stage-list" id="poma-stage-list" role="group" aria-label="Cargues de la radicación"></div>
+      </section>
+    </section>
+    <div class="poma-detail-backdrop" id="poma-detail" hidden>
+      <section class="sial-card poma-detail" role="dialog" aria-modal="true" aria-labelledby="poma-detail-title">
+        <div class="poma-detail-top"><div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4zM7 9h10M7 13h6"/></svg></span><div><h2 class="sial-section-title" id="poma-detail-title">Detalle del cargue</h2></div></div><button class="sial-btn sial-btn-icon" id="poma-detail-close" type="button" aria-label="Cerrar detalle"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+        <div class="poma-detail-scroll">
+          <div class="poma-route"><span class="poma-eyebrow">Trayecto seleccionado</span><div class="poma-route-line"><strong id="poma-route"></strong><span class="sial-pill success" id="poma-status">Salida confirmada</span></div></div>
+          <dl class="poma-facts">
+            <div><dt>Salida</dt><dd id="poma-dispatch"></dd></div>
+            <div><dt>Vehículo</dt><dd id="poma-vehicle"></dd></div>
+            <div><dt>Conductor</dt><dd id="poma-driver"></dd></div>
+            <div><dt>Transportadora</dt><dd id="poma-company"></dd></div>
+          </dl>
+          <dl class="poma-metrics"><div><dt>Pallets</dt><dd id="poma-pallet-count"></dd></div><div><dt>Cajas</dt><dd id="poma-box-count"></dd></div></dl>
+          <div class="poma-pallets-head"><div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M4 7 12 3l8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10"/></svg></span><div><h3>Pallets del cargue</h3></div></div></div>
+          <ol class="poma-pallet-list" id="poma-pallet-list" aria-label="Pallets del cargue"></ol>
+        </div>
+        <div class="poma-generation" id="poma-generation" aria-labelledby="poma-generation-title" hidden>
+          <div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM15 3v5h4M9 12h7M9 16h7"/></svg></span><div><h3 id="poma-generation-title">Documento POMA</h3></div></div>
+          <p class="poma-generation-hint" id="poma-generation-hint">La propuesta genera un PDF de ejemplo. El documento oficial requiere datos de la app.</p>
+          <button class="sial-btn sial-btn-primary sial-btn-full" id="poma-generate" type="button" data-sial-component="Button" data-sial-source="mobile-library-adapter">Generar PDF de ejemplo</button>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="../shared/sial-mobile-core.js"></script>
+  <script src="consulta-generacion.js"></script>
+</body>
+</html>

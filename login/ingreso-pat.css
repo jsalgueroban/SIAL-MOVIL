@@ -1,0 +1,4 @@
+.pat-screen .pat-error { margin: 6px 0 0; color: var(--sial-error); font-size: 12px; }
+.pat-screen .sial-input[aria-invalid="true"] { border-color: var(--sial-error); }
+.pat-screen #pat-submit:disabled { opacity: .55; cursor: not-allowed; }
+.pat-screen .login-network[data-online="false"]::before { background: var(--sial-warning); }

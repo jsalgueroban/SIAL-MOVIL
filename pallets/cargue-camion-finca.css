@@ -1,0 +1,57 @@
+.truck-body { display: grid; gap: 16px; }
+.truck-empty { display: grid; gap: 12px; justify-items: center; align-content: center; min-height: min(48svh, 350px); text-align: center; }
+.truck-empty[hidden] { display: none; }
+.truck-empty h2 { margin: 0; font-size: 18px; line-height: 1.3; }
+.truck-empty p { margin: 0; color: var(--sial-text-2); font-size: 13px; line-height: 1.45; }
+.truck-empty .sial-btn { margin-top: 12px; }
+.truck-empty .sial-mobile-section-icon { width: 46px; height: 46px; border-radius: 13px; }
+.truck-empty .sial-mobile-section-icon .sial-icon { width: 23px; height: 23px; }
+.truck-section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.truck-section-head h2, .truck-section-head h3 { margin: 0; }
+.truck-section-head h3 { color: var(--sial-text); font-size: 14px; }
+.truck-section-head p { margin: 4px 0 0; color: var(--sial-text-2); font-size: 12px; }
+.truck-select, .truck-operation, .truck-loading, .truck-summary, .truck-pallet-form { display: grid; gap: 14px; }
+.truck-select { gap: 6px; }
+.truck-select .sial-section-title { margin: 0; font-size: 18px; }
+.truck-select .sial-btn { margin-top: 3px; }
+.truck-operation .sial-section-title { margin: 0; }
+.truck-select[hidden], .truck-operation[hidden], .truck-loading[hidden], .truck-summary[hidden], .truck-pallet-form[hidden], .truck-loaded-detail[hidden], #truck-remove[hidden], .truck-modal-backdrop[hidden] { display: none; }
+.truck-loading .sial-mobile-section-heading { flex: 1; }
+.truck-loading .truck-section-head .sial-pill { flex: none; align-self: center; }
+.truck-summary > .sial-pill { justify-self: start; }
+.truck-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.truck-position { min-height: 76px; padding: 10px; border: 1px solid var(--sial-border); border-radius: var(--sial-radius-control); background: var(--sial-surface); color: var(--sial-text); text-align: left; }
+.truck-position strong, .truck-position span { display: block; }
+.truck-position strong { font-size: 13px; }
+.truck-position span { margin-top: 4px; overflow-wrap: anywhere; color: var(--sial-text-2); font-size: 11px; }
+.truck-position[data-loaded="true"] { background: var(--sial-success-bg); }
+.truck-position:focus-visible { outline: 2px solid var(--sial-primary-500); outline-offset: 2px; }
+.truck-pallet-form { padding-top: 8px; }
+.truck-sscc-row { display: flex; gap: 8px; }
+.truck-sscc-row .sial-input { flex: 1; }
+.truck-sscc-row .sial-btn { flex: 0 0 48px; min-width: 48px; min-height: 48px; }
+.truck-loaded-detail { display: grid; gap: 10px; padding-top: 16px; border-top: 1px solid var(--sial-border-subtle); }
+.truck-loaded-detail p { display: grid; gap: 3px; margin: 0; font-size: 12px; overflow-wrap: anywhere; }
+.truck-loaded-detail p span { color: var(--sial-text-2); }
+.truck-position-hint { color: var(--sial-text-2); font-size: 12px; }
+.truck-photo-native { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.truck-photo-row { display: grid; gap: 6px; }
+.truck-photo-row .sial-btn { min-height: 48px; }
+.truck-photo-row span { color: var(--sial-text-2); font-size: 11px; overflow-wrap: anywhere; }
+.truck-error { margin: 0; color: var(--sial-error); font-size: 12px; }
+.truck-summary-note, .truck-result { margin: 0; color: var(--sial-text-2); font-size: 12px; }
+.truck-result { color: var(--sial-success); }
+.truck-summary .sial-btn:disabled { opacity: .52; }
+.truck-modal-backdrop { position: fixed; z-index: 90; inset: 0; display: flex; align-items: center; justify-content: center; padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); background: rgba(10, 22, 37, .5); }
+.truck-modal { width: min(100%, 480px); max-height: calc(100svh - 32px); display: grid; align-content: start; gap: 12px; overflow-y: auto; padding: 18px 14px; border-radius: 18px; background: var(--sial-surface); box-shadow: var(--sial-shadow-overlay); }
+.truck-modal-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.truck-modal-head h2 { margin: 0; font-size: 17px; }
+.truck-modal-head .sial-btn-icon { flex: none; }
+.truck-modal-copy { margin: 0; color: var(--sial-text-2); font-size: 12px; }
+.truck-options { display: grid; gap: 8px; margin-top: 2px; }
+.truck-option { display: grid; gap: 4px; min-height: 64px; padding: 12px; border: 1px solid var(--sial-border); border-radius: var(--sial-radius-control); background: var(--sial-surface); color: var(--sial-text); text-align: left; }
+.truck-option:hover { border-color: var(--sial-primary-500); background: var(--sial-primary-50); }
+.truck-option strong { font-size: 14px; }
+.truck-option span { color: var(--sial-text-2); font-size: 12px; }
+.truck-option:focus-visible { outline: 2px solid var(--sial-primary-500); outline-offset: -2px; }
+.truck-options-empty { padding: 20px 4px; color: var(--sial-text-2); font-size: 13px; text-align: center; }

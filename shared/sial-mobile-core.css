@@ -6492,13 +6492,15 @@ html[data-theme="dark"] .sial-camera-overlay { color-scheme: dark; }
   .sial-inspection-label-actions { justify-content: flex-start; }
 }
 
-.sial-inspection-section-heading {
+.sial-inspection-section-heading,
+.sial-mobile-section-heading {
   display: flex;
   gap: 10px;
   align-items: flex-start;
 }
 
-.sial-inspection-section-icon {
+.sial-inspection-section-icon,
+.sial-mobile-section-icon {
   flex: 0 0 34px;
   width: 34px;
   height: 34px;
@@ -6510,13 +6512,17 @@ html[data-theme="dark"] .sial-camera-overlay { color-scheme: dark; }
   color: var(--sial-primary-600);
 }
 
-.sial-inspection-section-icon .sial-icon { width: 18px; height: 18px; }
+.sial-inspection-section-icon .sial-icon,
+.sial-mobile-section-icon .sial-icon { width: 18px; height: 18px; }
 
-.sial-inspection-section-heading > div { min-width: 0; }
+.sial-inspection-section-heading > div,
+.sial-mobile-section-heading > div { min-width: 0; }
 
-.sial-inspection-section-heading .sial-section-title { margin: 0; }
+.sial-inspection-section-heading .sial-section-title,
+.sial-mobile-section-heading .sial-section-title { margin: 0; }
 
-.sial-inspection-section-heading p {
+.sial-inspection-section-heading p,
+.sial-mobile-section-heading p {
   margin: 3px 0 0;
   color: var(--sial-text-2);
   font-size: 12px;

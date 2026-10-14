@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#005CA8">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../assets/brand/isotipo-sial.svg" type="image/svg+xml">
+  <title>SIAL Móvil | Ingreso sin conexión</title>
+  <script>
+    document.documentElement.dataset.theme = localStorage.getItem("sial-mobile-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  </script>
+  <link rel="stylesheet" href="sial-mobile-login.css">
+  <link rel="stylesheet" href="ingreso-pat.css">
+</head>
+<body>
+  <div class="phone-stage">
+    <main class="sial-app login-screen variant-institutional pat-screen">
+      <button class="sial-btn sial-btn-icon sial-theme-toggle" type="button" data-theme-toggle aria-label="Cambiar tema">
+        <svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 7 9 9 0 1 1-9-7Z"/></svg>
+      </button>
+      <div class="login-content">
+        <header class="login-top"><div class="sial-brand-lockup" data-brand-lockup></div></header>
+        <div class="login-main">
+          <section class="login-hero" aria-labelledby="pat-title">
+            <h1 class="login-title" id="pat-title">Ingresa sin conexión</h1>
+            <p class="login-copy">Usa el PAT configurado en este dispositivo para continuar.</p>
+          </section>
+          <section class="login-panel" aria-label="Ingreso con credencial local">
+            <form class="login-form" id="pat-form" novalidate>
+              <div class="sial-field" data-sial-component="TextInput" data-sial-source="mobile-library-adapter">
+                <label class="sial-label" for="pat-value">PAT</label>
+                <div class="sial-input-wrap">
+                  <svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="3"/><path d="m10.5 12.5 7-7a2 2 0 0 1 3 3l-7 7"/></svg>
+                  <input class="sial-input" id="pat-value" name="pat" type="password" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Ingresa tu PAT" aria-describedby="pat-help pat-error" required>
+                  <button class="sial-password-button" type="button" id="pat-visibility" aria-label="Mostrar credencial" aria-pressed="false"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12c2.5-4 5.8-6 10-6s7.5 2 10 6c-2.5 4-5.8 6-10 6s-7.5-2-10-6Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                </div>
+                <p class="sial-field-note" id="pat-help">Debes haberlo configurado antes de perder la conexión.</p>
+                <p class="pat-error" id="pat-error" role="alert" hidden></p>
+              </div>
+              <div class="login-meta"><a class="login-link" href="login-01-institucional.html" data-nav-direction="back">Volver al ingreso</a></div>
+              <div class="sial-login-actions"><button class="sial-btn sial-btn-primary sial-btn-full" id="pat-submit" type="submit" data-sial-component="Button" data-sial-source="mobile-library-adapter">Continuar</button></div>
+            </form>
+            <footer class="login-footer"><span>SIAL Móvil</span><span class="login-network" id="pat-network" role="status" aria-live="polite"></span></footer>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../shared/sial-mobile-core.js"></script>
+  <script src="sial-mobile-login.js"></script>
+  <script src="ingreso-pat.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../assets/brand/isotipo-sial.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#005CA8">
+  <title>SIAL Móvil | Cargue de camión en finca</title>
+  <script>document.documentElement.dataset.theme = localStorage.getItem("sial-mobile-theme") || "light";</script>
+  <link rel="stylesheet" href="../shared/sial-mobile-core.css">
+  <link rel="stylesheet" href="cargue-camion-finca.css">
+</head>
+<body>
+  <main class="sial-page truck-page">
+    <header class="sial-page-header">
+      <a class="sial-btn sial-btn-icon" href="../app/home.html" aria-label="Volver a Mi jornada" data-nav-direction="back"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+      <span class="sial-app-isotype" aria-hidden="true"><img src="../assets/brand/isotipo-sial.svg" alt=""></span>
+      <div class="sial-page-title"><h1>Cargue de camión</h1><p>Finca activa</p></div>
+      <button class="sial-btn sial-btn-icon" type="button" data-theme-toggle aria-label="Cambiar tema"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 7 9 9 0 1 1-9-7Z"/></svg></button>
+    </header>
+    <section class="sial-page-body truck-body">
+      <section class="sial-card sial-card-pad truck-empty" id="truck-empty" aria-labelledby="truck-empty-title">
+        <span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span>
+        <h2 id="truck-empty-title">Selecciona un camión</h2>
+        <p>Elige uno de los camiones recibidos en la finca para consultar sus posiciones y comenzar el cargue.</p>
+        <button class="sial-btn sial-btn-primary sial-btn-full" id="truck-open-picker" type="button">Seleccionar camión</button>
+      </section>
+      <section class="sial-card sial-card-pad truck-select" id="truck-select" aria-labelledby="truck-select-title" hidden>
+        <p class="sial-inspection-eyebrow">Camión seleccionado</p>
+        <h2 class="sial-section-title" id="truck-select-title"><span id="truck-plate"></span></h2>
+        <button class="sial-btn sial-btn-secondary sial-btn-full" id="truck-change" type="button"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg>Cambiar camión</button>
+      </section>
+      <section class="sial-card sial-card-pad truck-operation" id="truck-operation" aria-labelledby="truck-operation-title" hidden>
+        <h2 class="sial-section-title" id="truck-operation-title">Información de la operación</h2>
+        <dl class="sial-inspection-operation-list">
+          <div><dt>Operación</dt><dd id="truck-operation-caption"></dd></div>
+          <div><dt>Conductor</dt><dd id="truck-driver"></dd></div>
+          <div><dt>Transportadora</dt><dd id="truck-company"></dd></div>
+          <div><dt>Finca</dt><dd id="truck-farm"></dd></div>
+          <div><dt>Estado</dt><dd id="truck-state">En preparación</dd></div>
+        </dl>
+      </section>
+      <section class="sial-card sial-card-pad truck-loading" id="truck-loading" aria-labelledby="truck-grid-title" hidden>
+        <div class="truck-section-head"><div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M4 7 12 3l8 4v10l-8 4-8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg></span><div><h2 class="sial-section-title" id="truck-grid-title">Posiciones del camión</h2><p>Selecciona una posición para asignar o consultar un pallet.</p></div></div><span class="sial-pill" id="truck-count">0 / 0</span></div>
+        <div class="truck-grid" id="truck-grid" role="group" aria-label="Posiciones del camión"></div>
+      </section>
+      <section class="sial-card sial-card-pad truck-summary" id="truck-summary" aria-labelledby="truck-summary-title" hidden>
+        <div class="truck-section-head"><div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="m8 9 2 2 4-4M8 15h8"/></svg></span><div><h2 class="sial-section-title" id="truck-summary-title">Resumen del cargue</h2><p>Verifica lo asignado antes de confirmar.</p></div></div></div>
+        <span class="sial-pill warning" id="truck-summary-state">En preparación</span>
+        <dl class="sial-inspection-operation-list"><div><dt>Pallets cargados</dt><dd id="truck-total">0</dd></div><div><dt>Posiciones disponibles</dt><dd id="truck-free">0</dd></div></dl>
+        <p class="truck-summary-note">Revisa los pallets y las fotografías antes de confirmar.</p>
+        <button class="sial-btn sial-btn-primary sial-btn-full" id="truck-confirm" type="button" data-sial-component="Button" data-sial-source="mobile-library-adapter" disabled>Confirmar cargue</button>
+        <p class="truck-result" id="truck-result" role="status" hidden></p>
+      </section>
+    </section>
+    <div class="truck-modal-backdrop" id="truck-picker" hidden>
+      <section class="truck-modal" role="dialog" aria-modal="true" aria-labelledby="truck-picker-title">
+        <div class="truck-modal-head"><h2 id="truck-picker-title">Selecciona un camión</h2><button class="sial-btn sial-btn-icon" type="button" id="truck-close-picker" aria-label="Cerrar selector">×</button></div>
+        <p class="truck-modal-copy">Solo camiones recibidos y disponibles en la finca activa.</p>
+        <label class="sial-label" for="truck-search">Buscar por placa</label>
+        <input class="sial-input-wrap sial-input" id="truck-search" type="search" placeholder="Placa del camión" autocomplete="off">
+        <div class="truck-options" id="truck-options"></div>
+      </section>
+    </div>
+    <div class="truck-modal-backdrop" id="truck-position-dialog" hidden>
+      <section class="truck-modal" role="dialog" aria-modal="true" aria-labelledby="truck-position-title">
+        <div class="truck-modal-head"><div><h2 id="truck-position-title">Posición <span id="truck-position-number">1</span></h2><span class="truck-position-hint" id="truck-position-hint">Libre</span></div><button class="sial-btn sial-btn-icon" type="button" id="truck-close-position" aria-label="Cerrar posición">×</button></div>
+        <form id="truck-pallet-form" class="truck-pallet-form" novalidate>
+          <div class="sial-field" data-sial-component="TextInput" data-sial-source="mobile-library-adapter">
+            <label class="sial-label" for="truck-sscc">SSCC del pallet</label>
+            <div class="truck-sscc-row"><input class="sial-input-wrap sial-input" id="truck-sscc" type="text" inputmode="numeric" maxlength="18" autocomplete="off" placeholder="Escanea o digita 18 dígitos" aria-describedby="truck-error" required><button class="sial-btn sial-btn-secondary sial-btn-icon" id="truck-scan" type="button" aria-label="Escanear SSCC"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7V4h3M17 4h3v3M20 17v3h-3M7 20H4v-3M7 12h10"/></svg></button></div>
+          </div>
+          <div class="sial-field">
+            <label class="sial-label" for="truck-photo">Evidencia de la posición</label>
+            <input class="truck-photo-native" id="truck-photo" type="file" accept="image/*" capture="environment" aria-hidden="true" tabindex="-1">
+            <div class="truck-photo-row"><button class="sial-btn sial-btn-secondary" id="truck-photo-trigger" type="button">Tomar o adjuntar foto</button><span id="truck-photo-name">Sin archivo</span></div>
+          </div>
+          <p class="truck-error" id="truck-error" role="alert" hidden></p>
+          <button class="sial-btn sial-btn-primary sial-btn-full" type="submit" data-sial-component="Button" data-sial-source="mobile-library-adapter">Asignar pallet a posición</button>
+        </form>
+        <div class="truck-loaded-detail" id="truck-loaded-detail" hidden>
+          <p><strong>SSCC</strong><span id="truck-loaded-sscc"></span></p>
+          <p><strong>Evidencia</strong><span id="truck-loaded-photo"></span></p>
+          <button class="sial-btn sial-btn-secondary sial-btn-full" id="truck-remove" type="button" data-sial-component="Button" data-sial-source="mobile-library-adapter">Retirar pallet de la posición</button>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="../shared/sial-mobile-core.js"></script>
+  <script src="cargue-camion-finca.js"></script>
+</body>
+</html>

@@ -2348,7 +2348,15 @@
         { href: "../pallets/rearmar-pallet.html", label: "HU344 - Rearmar pallets en ZE", icon: drawerIcon('<path d="M4 6h7v5H4z"/><path d="M4 13h7v5H4z"/><path d="M15 9h5v6h-5z"/><path d="m11 8 4 4-4 4"/>') },
         { href: "../pallets/consulta-pallets.html", label: "Consulta Pallet’s", icon: drawerIcon('<circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/><path d="M7 10h6"/>') },
         { href: "../pallets/reetiquetar-pallet.html", label: "Re-etiquetar pallet", icon: drawerIcon('<path d="M4 7h16v10H4z"/><path d="m8 12 3 3 5-6"/><path d="M7 20h10"/>') },
-        { href: "../pallets/cargar-pallets.html", label: "HU332 - Cargue contenedor", icon: drawerIcon('<path d="M12 5v14"/><path d="M5 12h14"/>') }
+        { href: "../pallets/cargar-pallets.html", label: "HU332 - Cargue contenedor", icon: drawerIcon('<path d="M12 5v14"/><path d="M5 12h14"/>') },
+        { href: "../pallets/cargue-camion-finca.html", label: "HU332 - Cargue de camión", icon: drawerIcon('<rect x="3" y="7" width="13" height="9" rx="1"/><path d="M16 10h3l2 3v3h-5"/><circle cx="7" cy="17" r="2"/><circle cx="18" cy="17" r="2"/>') }
+      ]
+    },
+    {
+      label: "Documentos",
+      aria: "Navegacion documental",
+      items: [
+        { href: "../poma/consulta-generacion.html", label: "HU337 - Consulta y generación POMA", icon: drawerIcon('<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h4"/><path d="M9 13h7"/><path d="M9 17h7"/>') }
       ]
     },
     {
