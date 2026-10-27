@@ -689,6 +689,8 @@ El cierre de sesión se presenta en encabezados internos junto al cambio de tema
 
 Directa, respetuosa y orientada a la operación. Usar español colombiano claro.
 
+El texto visible y accesible debe poder trasladarse al producto sin reinterpretar la intención. No mostrar números de HU, nombres de capas técnicas, «propuesta», «demo», «esta sesión» ni decisiones del equipo en títulos, ayudas, estados, detalles, historial, notificaciones o nombres accesibles. La trazabilidad se documenta fuera de la pantalla. Se conservan códigos operativos reales, como SSCC o documento, cuando ayudan a identificar la carga o completar la tarea.
+
 ### 13.2 Acciones
 
 Usar verbo + objeto: `Escanear SSCC`, `Agregar referencia`, `Revisar errores`, `Crear pallet`. Evitar `Aceptar` o `Continuar` cuando no describan el resultado.
@@ -707,6 +709,8 @@ Ejemplo:
 - Mensaje: `Revisa los 18 dígitos o vuelve a escanear la etiqueta.`
 
 Evitar códigos técnicos como texto principal. Si ayudan a soporte, ubicarlos como detalle secundario copiable.
+
+El título orienta; la ayuda añade una restricción; el error explica la recuperación. No repetir la misma instrucción entre encabezado, card, campo y mensaje. Una interacción local que no persiste o envía datos no debe comunicar éxito durable; su limitación se registra en el handoff y cualquier texto temporal se marca como no promocionable.
 
 ### 13.4 Consistencia terminológica
 
@@ -826,6 +830,7 @@ La validación mínima cubre:
 - [ ] Funciona en claro y oscuro.
 - [ ] Respeta safe areas y reducción de movimiento.
 - [ ] Contraste, foco, labels y escalado de texto fueron revisados.
+- [ ] Títulos, ayudas, vacíos, errores, toasts, detalles y nombres accesibles usan lenguaje operativo sin HU ni referencias al proceso de diseño; no repiten información entre niveles.
 
 ### Implementación
 

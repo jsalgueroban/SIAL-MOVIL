@@ -3,6 +3,8 @@
 Fecha de auditoría: 2026-08-21.  
 Alcance: todas las vistas HTML de la propuesta móvil, sin incluir artefactos de `output/`.
 
+Actualización 2026-10-14: `docs/pattern-registry.mobile.json` conserva un primer corte versionado de siete decisiones con alcance, ciclo de vida, vistas y evidencia. Este mapa histórico y el registro no sustituyen el inventario runtime: el escaneo actual cuenta 53 HTML y las vistas añadidas después de la auditoría inicial aún deben mapearse una por una. `calibrated` guía solo a la familia indicada; `observed` y `candidate` no son reglas obligatorias. El estado de composición tampoco certifica un componente del paquete React Native ni su adopción en producto.
+
 ## Decisión de arquitectura visual
 
 La librería es la única fuente para tokens, controles, feedback, capas, navegación y composiciones que se repiten entre procesos. Un módulo local conserva solamente la representación o regla que depende de un dominio concreto. El uso de una clase local no constituye una nueva regla de diseño.
@@ -75,6 +77,10 @@ La librería es la única fuente para tokens, controles, feedback, capas, navega
 6. Si no se aprueba, el candidato se ajusta, permanece aislado o se retira según la decisión de revisión; nunca se convierte en precedente accidental.
 7. No se hace una migración masiva de vistas base. Cada HU conserva su alcance y adopta el canon cuando se cambie por un requerimiento aprobado.
 8. Antes de cerrar, validar claro/oscuro, 340/390/430/480 px, foco, lector de pantalla, teclado, movimiento reducido y los estados de vacío/error/offline que apliquen.
+
+Al construir una vista nueva, consultar el registro versionado y declarar si se reutiliza una composición calibrada, se adapta para la misma familia o se explora una alternativa. La exploración puede conservar los controles compartidos y cambiar la jerarquía o el recorrido; no necesita parecerse al patrón existente para ser evaluada. Registrar la alternativa y sus estados en la decisión local, sin promocionarla por un solo caso. Si se aprueba una evolución, señalar consumidores que migran y consumidores que conservan la versión anterior.
+
+El detalle de cargue POMA y la captura preoperacional por pasos se registran como observaciones de vista, no como plantilla móvil global. El feedback de guardado explícito de HU533 también permanece observado hasta contrastarlo en otra captura. La etiqueta visual de pallet continúa candidata. Esta clasificación no limita proponer una mejor composición para una necesidad nueva.
 
 ## Promoción HU758 · catálogo visual
 

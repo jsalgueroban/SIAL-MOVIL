@@ -1,0 +1,11 @@
+# HU1920 · ledger de capacidades para la revisión móvil
+
+| Capacidad | Señal | Plataforma/runtime | Estado | Aporte y evidencia | Promoción |
+| --- | --- | --- | --- | --- | --- |
+| Frontend Design | Las dos composiciones se percibieron como Web reducido. | Propuesta móvil HTML, destino RN | activated | Cambia la firma de KPI radial a lectura del rastro logístico; `hu1920-mobile-creative-brief.md`. | Solo tras revisión visual y traducción a componentes nativos. |
+| Mobile Native | El selector y la página larga no se comportaban como tarea móvil. | Propuesta táctil, destino RN | activated | Selector en sheet con chips de estado, búsqueda de 16 px, datos de 13 px y objetivos táctiles de al menos 44 px; `DESIGN.md` y auditoría actual. | Validar en dispositivo real al promover a producto. |
+| Impeccable | Jerarquía y densidad de la vista actual necesitan crítica. | Propuesta móvil | evaluated-no-impact | La crítica estructural quedó resuelta con evidencia de viewport y criterios SIAL; no se invocó su launcher ni se atribuye salida propia. | No aplica. |
+| Gráfica radial decorativa | El 85 % ocultaba las brechas intermedias. | Propuesta móvil | discarded | Se reemplazó por comparación de etapas en Panorama; auditoría en `hu1920-mobile-reference-analysis.md`. | No aplica. |
+| 3D, shaders o material glass | No aportan a decidir qué caso revisar. | Móvil/RN | discarded | Evitan costo y ruido visual sin beneficio operativo. | No aplica. |
+| Patrón operativo ZE | John señaló `inspeccion-interna.html?selectContainer=1` como referencia concreta. | Propuesta móvil HTML | activated | Selector contextual, ficha elegida, filas compactas, encabezados `sial-mobile-section-heading` e insignia `sial-pill`; sin copiar captura o confirmación. | Revisar visualmente antes de reutilizar fuera de HU1920. |
+| Analítica HU1920 | La HU necesita detectar desvíos entre cuatro etapas y localizar la diferencia. | Propuesta móvil HTML | activated | Balance agregado por material y unidad en cuatro columnas; porcentajes con denominadores explícitos; gráfica de despacho y POD frente al aprobado por finca; detalle separado de la línea elegida. Se retiró la distribución global por conteos. Evidencia: `hu1920-mobile-semantic-audit.md`. | Mantener como propuesta; contrato de datos productivo pendiente. |
