@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "platform": "mobile",
+  "purpose": "Registro de decisiones de composición de la propuesta; no certifica APIs React Native ni adopción en producto.",
+  "patterns": [
+    {
+      "pattern_id": "mobile-capture-confirmation",
+      "family": "captura-operativa",
+      "scope": "family",
+      "lifecycle": "calibrated",
+      "applies_to": ["puerto-ze/despacho-finca.html", "finca/despacho-ze.html"],
+      "component_ids": ["sial-confirmation-card", "Button"],
+      "rules": ["Ubicar una card de confirmación hermana después del formulario, con texto breve y un único CTA primario de ancho completo.", "Conservar form=<id> cuando el botón vive fuera del formulario."],
+      "exceptions": ["No imponer este cierre a consultas, escáneres ni inspecciones con revisión por pasos."],
+      "evidence": ["libreria/patrones-de-diseno-movil.md", "shared/sial-mobile-core.css", "puerto-ze/despacho-finca.html", "finca/despacho-ze.html"],
+      "adoption_note": "Composición visual del prototipo; verificar por separado el componente y consumidor nativos.",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "mobile-section-heading",
+      "family": "captura-y-consulta-operativa",
+      "scope": "family",
+      "lifecycle": "calibrated",
+      "applies_to": ["puerto-ze/inspeccion-interna.html", "pallets/cargue-camion-finca.html", "poma/consulta-generacion.html", "transporte/inspeccion-preoperacional.html"],
+      "component_ids": ["sial-mobile-section-heading", "sial-mobile-section-icon"],
+      "rules": ["Mantener icono funcional y título en la misma fila, con subtítulo solo si añade contexto.", "Usar jerarquía de sección y no una card adicional para el icono."],
+      "exceptions": ["El icono y la composición no se imponen a cada fila, métrica o mensaje de la vista."],
+      "evidence": ["shared/sial-mobile-core.css", "pallets/cargue-camion-finca.html", "poma/consulta-generacion.html", "transporte/inspeccion-preoperacional.html"],
+      "adoption_note": "Alias visual de propuesta; no afirma un nuevo export del paquete React Native.",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "mobile-operational-ticket",
+      "family": "operacion-identificada",
+      "scope": "family",
+      "lifecycle": "calibrated",
+      "applies_to": ["puerto-ze/hu342-descarga-pallets.html", "puerto-ze/hu347-cargue-consolidado.html"],
+      "component_ids": ["sial-operation-ticket"],
+      "rules": ["Mostrar identificación y contexto de la operación sin repetir KPIs ni agregar estados sin fuente."],
+      "exceptions": ["No agregar ticket a una consulta o formulario que no tiene operación activa."],
+      "evidence": ["DESIGN.md", "libreria/patrones-de-diseno-movil.md", "shared/sial-mobile-core.css"],
+      "adoption_note": "La semántica y los datos de cada operación permanecen en la vista o feature.",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "mobile-explicit-save-feedback",
+      "family": "captura-con-borrador",
+      "scope": "family",
+      "lifecycle": "observed",
+      "applies_to": ["transporte/inspeccion-preoperacional.html"],
+      "component_ids": ["Toast", "inline-error"],
+      "rules": ["Mostrar Toast tras una acción explícita de guardado y mantener los errores de campo junto a su origen.", "No producir un Toast por cada autoguardado o cambio de paso; distinguir guardado local de sincronización confirmada."],
+      "exceptions": ["La evidencia de esta vista prueba la interacción del prototipo, no la persistencia nativa ni paridad completa del provider React Native."],
+      "evidence": ["docs/hu533-preoperacional-mobile-decision.md", "transporte/inspeccion-preoperacional.js", "shared/sial-mobile-core.js"],
+      "adoption_note": "Uso observado en una vista; comparar otra captura antes de calibrar el patrón. La implementación nativa requiere verificación separada.",
+      "confidence": "medium"
+    },
+    {
+      "pattern_id": "mobile-poma-detail-sheet",
+      "family": "consulta-logistica",
+      "scope": "view",
+      "lifecycle": "observed",
+      "applies_to": ["poma/consulta-generacion.html"],
+      "component_ids": ["bottom-sheet", "sial-mobile-section-heading", "sial-pill"],
+      "rules": ["Separar trayecto y estado, datos del cargue, lista de pallets y generación del documento en bloques legibles dentro del detalle."],
+      "exceptions": ["La estructura del documento POMA y sus campos son de dominio; no promover el sheet completo por una sola vista."],
+      "evidence": ["poma/consulta-generacion.html", "poma/consulta-generacion.css"],
+      "adoption_note": "Candidato a comparar con otro detalle móvil antes de calibrar la composición.",
+      "confidence": "medium"
+    },
+    {
+      "pattern_id": "mobile-staged-preoperational-checklist",
+      "family": "inspeccion-preoperacional",
+      "scope": "view",
+      "lifecycle": "observed",
+      "applies_to": ["transporte/inspeccion-preoperacional.html"],
+      "component_ids": ["progress", "Button", "inline-error"],
+      "rules": ["Mostrar un grupo de checklist por paso, validar antes de avanzar y conservar respuestas al retroceder o recargar el borrador."],
+      "exceptions": ["Seis grupos y un paso de revisión proceden del insumo y decisión de HU533; no son secuencia estándar para otras inspecciones."],
+      "evidence": ["docs/hu533-preoperacional-mobile-decision.md", "transporte/inspeccion-preoperacional.html", "transporte/inspeccion-preoperacional.js"],
+      "adoption_note": "Decisión local de propuesta, no contrato funcional del producto.",
+      "confidence": "high"
+    },
+    {
+      "pattern_id": "mobile-pallet-identification-label",
+      "family": "pallets",
+      "scope": "family",
+      "lifecycle": "candidate",
+      "applies_to": ["pallets/armar-pallet.html"],
+      "component_ids": ["sial-pallet-identification-label"],
+      "rules": ["Representar la etiqueta operativa con SSCC, finca, semana, cajas y referencias respaldadas."],
+      "exceptions": ["No trasladar el material de papel o la forma de etiqueta a otras familias por estética."],
+      "evidence": ["pallets/hu591.css", "libreria/patrones-de-diseno-movil.md"],
+      "adoption_note": "Requiere comparación y aprobación antes de promoción a componente compartido.",
+      "confidence": "medium"
+    }
+  ]
+}

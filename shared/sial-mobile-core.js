@@ -2422,6 +2422,7 @@
         { href: "../materiales/pedido-adicional.html", label: "Pedido adicional", icon: drawerIcon('<path d="M12 5v14"/><path d="M5 12h14"/><path d="M4 4h16v16H4z"/>') },
         { href: "../materiales/inventario-finca.html", label: "Inventario finca", icon: drawerIcon('<path d="M4 7h16v10H4z"/><path d="M8 7V5h8v2"/>') },
         { href: "../materiales/ordenes-asignadas.html", label: "Ordenes asignadas", icon: drawerIcon('<path d="M3 7h11v10H3z"/><path d="M14 11h4l3 3v3h-7z"/>') },
+        { href: "../materiales/control-entregas.html", label: "Control de entregas", icon: drawerIcon('<path d="M3 19h18"/><path d="M5 15V9"/><path d="M10 15V5"/><path d="M15 15v-4"/><path d="M20 15V7"/>') },
         { href: "../materiales/registrar-entrega.html", label: "Registrar entrega", icon: drawerIcon('<path d="M20 6 9 17l-5-5"/><path d="M4 20h16"/>') },
         { href: "../materiales/pallets.html", label: "Pallets materiales", icon: drawerIcon('<path d="M5 7h14"/><path d="M5 12h14"/><path d="M5 17h14"/>') }
       ]
