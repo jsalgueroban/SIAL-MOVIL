@@ -30,6 +30,10 @@ export const controlCases = [
     approved: 35, programmed: 35, dispatched: 35, delivered: 22, updated: "28 jun 2026 · 17:12",
     trips: [{ id: "VIA-2026-044-A", vehicle: "VHC-018", quantity: 35 }]
   }
+  ,{ id: "AG-2026-008", pedido: "AG-2026-008", line: "01", document: "AGRO-2026-008", order: "OTI-2026-045", delivery: "ENT-2026-045", pod: null,
+    farm: "Finca Las Palmas", notice: null, noticeVersion: null, materialCode: "AG-101", material: "Fertilizante", unit: "KG",
+    approved: 100, programmed: 100, dispatched: 100, delivered: null, receivedReported: 100, updated: "28 jun 2026 · 17:30",
+    trips: [{ id: "VIA-2026-045-A", vehicle: "VHC-033", quantity: 100 }] }
 ];
 
 export const stages = [
@@ -48,7 +52,7 @@ export function totalsFor(cases) {
 
 export function casesForAlert(cases, alert) {
   if (alert === "overprogrammed") return cases.filter((item) => item.programmed > item.approved);
-  if (alert === "pendingPod") return cases.filter((item) => item.dispatched !== null && (item.delivered === null || item.delivered < item.dispatched));
+  if (alert === "pendingPod") return cases.filter((item) => item.dispatched !== null && (item.delivered === null || item.delivered < item.dispatched || (item.delivered > 0 && !item.pod)));
   if (alert === "noDeparture") return cases.filter((item) => item.dispatched === null);
   return cases;
 }
