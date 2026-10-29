@@ -25,3 +25,7 @@ El indicador «Despachado» es `despachado / consolidado aprobado`; «Con POD» 
 ## Límite de la propuesta
 
 Los registros, documentos y estados son ejemplos fijos. La propuesta no consulta Materiales, Transporte ni Finca en vivo, no verifica autenticidad de POD ni identifica el evento productivo que confirma la salida. La HU pide detección en tiempo real; esta capacidad requiere contrato de fuentes, frescura, versiones, permisos y actualización en producto. La vista no debe presentarse como cumplimiento funcional productivo de la HU.
+
+## Ajuste del 29 de octubre de 2026
+
+Se añade un caso ilustrativo Agros: 100 KG reportados como recibidos sin POD. La recepción informada se muestra en detalle y la cantidad con POD permanece sin dato. La alerta incluye cantidades positivas sin identificador de soporte. La comparación cuantitativa del Aviso de Corte queda pendiente de definición funcional.

@@ -1,4 +1,4 @@
-import { controlCases, stages, caseReading, caseIssues, materialKey, totalsFor } from "./hu1920-control-data.js?v=34";
+import { controlCases, stages, caseReading, caseIssues, materialKey, totalsFor } from "./hu1920-control-data.js?v=35";
 
 const root = document.querySelector("#hu1920-root");
 const fmt = new Intl.NumberFormat("es-CO");
@@ -179,7 +179,7 @@ function openDetailSheet(kind, item) {
     const total = item.trips.reduce((sum, trip) => sum + trip.quantity, 0);
     content.innerHTML = `<p>Programación de ${amount(item.programmed)} ${esc(item.unit)} distribuida en ${item.trips.length} ${item.trips.length === 1 ? "viaje" : "viajes"}.</p>${item.trips.map((trip) => `<div><span><strong>${esc(trip.id)}</strong><small>Vehículo ${esc(trip.vehicle)}</small></span><b>${amount(trip.quantity)} ${esc(item.unit)}</b></div>`).join("")}<p>${total === item.programmed ? "Los viajes suman la programación." : `Diferencia de ${amount(Math.abs(total - item.programmed))} ${esc(item.unit)} frente a la programación.`}</p>`;
   } else {
-    const docs = [["Documento de origen", item.document], ["Orden de transporte", item.order], ["Entrega", item.delivery || "Sin registro"], ["POD", item.pod || "Sin soporte validado"]];
+    const docs = [...(item.receivedReported != null ? [["Recepción reportada sin POD", `${amount(item.receivedReported)} ${item.unit} · pendiente de soporte`]] : []), ["Documento de origen", item.document], ["Orden de transporte", item.order], ["Entrega", item.delivery || "Sin registro"], ["POD", item.pod || "Sin soporte validado"]];
     content.innerHTML = `<p>Rastro documental de ${esc(item.pedido)}, línea ${esc(item.line)}. Los identificadores son ilustrativos y no verifican el soporte real.</p>${docs.map(([label, value]) => `<div><span><small>${esc(label)}</small><strong>${esc(value)}</strong></span></div>`).join("")}`;
   }
   window.SialMobileUI?.openDialog?.({ id: `hu1920-${kind}`, title: kind === "trips" ? "Viajes y vehículos" : "Documentos del proceso", variant: "sheet", content, actions: [] });
