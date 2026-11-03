@@ -2357,6 +2357,7 @@
       aria: "Navegacion ZE Puerto",
       items: [
         { href: "../puerto-ze/index.html", label: "Dashboard ZE Puerto", icon: drawerIcon('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>') },
+        { href: "../puerto-ze/programacion-contenedores.html", label: "Programación de contenedores", icon: drawerIcon('<rect x="3" y="6" width="18" height="12" rx="1"/><path d="M7 9v6M12 9v6M17 9v6"/>') },
         { href: "../puerto-ze/recepcion-ze.html", label: "HU758 · Recepción en ZE", icon: drawerIcon('<path d="M3 17h18"/><path d="M6 17V7h12v10"/><path d="M8 11h8"/>') },
         { href: "../puerto-ze/inspeccion-externa.html?selectContainer=1", label: "HU557 - Inspeccion externa ZE", icon: drawerIcon('<path d="M3 7h18"/><path d="M5 7v10h14V7"/><path d="M8 11h8"/><path d="M8 14h5"/>') },
         { href: "../puerto-ze/inspeccion-interna.html?selectContainer=1", label: "HU558 - Inspeccion interna ZE", icon: drawerIcon('<rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8"/><path d="M8 13h8"/>') },
