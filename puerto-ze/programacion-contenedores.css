@@ -1,0 +1,28 @@
+.schedule-page, .schedule-results, .schedule-selected { display: grid; gap: 12px; }
+.schedule-page .sial-section { display: grid; gap: 12px; }
+.schedule-page .sial-section + .sial-section { border-top: 1px solid var(--sial-border-subtle); padding-top: 20px; margin-top: 8px; }
+.schedule-help { margin: 0; font-size: 12px; line-height: 1.5; color: var(--sial-text-2); }
+.schedule-confirmation, .schedule-results { margin-top: 16px; }
+.schedule-selected:empty { display: none; }
+.schedule-selection-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--sial-border-subtle); padding: 8px 0; }
+.schedule-selection-row strong, .schedule-record strong { display: block; font-variant-numeric: tabular-nums; }
+.schedule-selection-row small, .schedule-record small { display: block; color: var(--sial-text-2); font-size: 12px; }
+.schedule-record { display: grid; gap: 12px; }
+.schedule-record-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.schedule-record p { margin: 0; font-size: 13px; color: var(--sial-text-2); }
+.schedule-picker-list { display: grid; gap: 8px; margin-top: 12px; }
+.schedule-picker-list .sial-selectable-row { grid-template-columns: minmax(0, 1fr) auto; width: 100%; min-height: 64px; text-align: left; font: inherit; color: var(--sial-text); }
+.schedule-picker-list .sial-selectable-row strong, .schedule-picker-list .sial-selectable-row small { display: block; }
+.schedule-picker-list small { color: var(--sial-text-2); font-size: 12px; }
+.schedule-picker-list .sial-selectable-row svg { flex: 0 0 20px; }
+.schedule-picker-list .sial-selectable-row[aria-pressed="false"] svg { opacity: .25; }
+.schedule-demo { margin: 4px 0; font-size: 11px; color: var(--sial-text-2); text-align: center; }
+.schedule-record, .schedule-selection-row > div { min-width: 0; overflow-wrap: anywhere; }
+[data-dialog-id="schedule-container-picker"] .sial-bottom-sheet,
+[data-dialog-id="schedule-detail"] .sial-bottom-sheet { display: flex; flex-direction: column; max-height: calc(100dvh - 32px); }
+[data-dialog-id="schedule-container-picker"] .sial-dialog-body,
+[data-dialog-id="schedule-detail"] .sial-dialog-body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+[data-dialog-id="schedule-container-picker"] .sial-dialog-header,
+[data-dialog-id="schedule-container-picker"] .sial-dialog-actions,
+[data-dialog-id="schedule-detail"] .sial-dialog-header,
+[data-dialog-id="schedule-detail"] .sial-dialog-actions { flex-shrink: 0; }

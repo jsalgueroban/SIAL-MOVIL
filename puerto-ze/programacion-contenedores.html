@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#005CA8">
+  <title>SIAL Móvil - Programación de contenedores</title>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('sial-mobile-theme')||'light';}catch{}</script>
+  <link rel="stylesheet" href="../shared/sial-mobile-core.css">
+  <link rel="stylesheet" href="programacion-contenedores.css">
+</head>
+<body>
+  <main class="sial-page">
+    <header class="sial-page-header">
+      <a class="sial-btn sial-btn-icon" href="index.html" aria-label="Volver a ZE Puerto" data-nav-direction="back"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+      <span class="sial-app-isotype" aria-hidden="true"><img src="../assets/brand/isotipo-sial.svg" alt=""></span>
+      <div class="sial-page-title"><h1>Programación de contenedores</h1><p>Disponibilidad por semana operativa</p></div>
+      <button class="sial-btn sial-btn-icon" type="button" data-theme-toggle aria-label="Cambiar tema"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 7 9 9 0 1 1-9-7Z"/></svg></button>
+    </header>
+    <div class="sial-page-body schedule-page">
+      <div class="sial-segmented" role="group" aria-label="Vista de programación">
+        <button class="sial-segment-option" type="button" id="create-mode" aria-pressed="true" aria-controls="create-panel">Programar</button>
+        <button class="sial-segment-option" type="button" id="list-mode" aria-pressed="false" aria-controls="list-panel">Programaciones</button>
+      </div>
+      <section id="create-panel" aria-label="Nueva programación">
+        <form id="schedule-form" class="sial-card sial-card-pad sial-form" novalidate>
+          <section class="sial-section" aria-labelledby="week-title">
+            <div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg></span><h2 class="sial-section-title" id="week-title">Semana operativa</h2></div>
+            <div class="sial-field">
+              <label class="sial-label" for="week-trigger">Semana de programación *</label>
+              <button class="sial-select-trigger" id="week-trigger" type="button" aria-haspopup="dialog" aria-describedby="week-help"><span id="week-value"></span><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></button>
+              <p class="schedule-help" id="week-help"></p>
+            </div>
+          </section>
+          <section class="sial-section" aria-labelledby="selection-title">
+            <div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1"/><path d="M7 9v6M12 9v6M17 9v6"/></svg></span><h2 class="sial-section-title" id="selection-title">Contenedores</h2></div>
+            <p class="schedule-help">Selecciona uno o varios contenedores disponibles para esta semana.</p>
+            <button class="sial-btn sial-btn-secondary sial-btn-full" id="choose-containers" type="button" aria-haspopup="dialog" aria-describedby="selection-error"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Seleccionar contenedores</button>
+            <p id="selection-error" class="sial-inline-error" role="alert" hidden></p>
+            <div id="selected-containers" class="schedule-selected" aria-live="polite"></div>
+            <div class="sial-list-row"><span>Etapa inicial</span><strong>Disponible</strong></div>
+            <p class="schedule-help">Se asigna automáticamente al programar.</p>
+          </section>
+          <section class="sial-section" aria-labelledby="notes-title">
+            <div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M4 4h16v13H8l-4 4zM8 8h8M8 12h5"/></svg></span><h2 class="sial-section-title" id="notes-title">Observación</h2></div>
+            <label class="sial-label" for="schedule-notes">Observación para los contenedores seleccionados (opcional)</label>
+            <textarea class="sial-textarea" id="schedule-notes" rows="3" placeholder="Añade una indicación para esta programación"></textarea>
+          </section>
+        </form>
+        <section class="sial-card sial-card-pad sial-confirmation-card schedule-confirmation" aria-label="Confirmar programación" data-sial-component="sial-confirmation-card" data-sial-source="proposal-only">
+          <p class="sial-confirmation-copy" id="confirmation-copy">Revisa la semana y los contenedores antes de programar.</p>
+          <button class="sial-btn sial-btn-primary sial-btn-full" type="submit" form="schedule-form">Programar contenedores</button>
+        </section>
+      </section>
+      <section id="list-panel" aria-labelledby="results-title" hidden>
+        <div class="sial-card sial-card-pad sial-form">
+          <div class="sial-mobile-section-heading"><span class="sial-mobile-section-icon" aria-hidden="true"><svg class="sial-icon" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M3 6h1M3 12h1M3 18h1"/></svg></span><h2 class="sial-section-title" id="results-title">Programaciones</h2></div>
+          <label class="sial-field"><span class="sial-label">Buscar contenedor</span><input class="sial-input-wrap sial-input" id="schedule-search" type="search" placeholder="Número de contenedor" autocomplete="off"></label>
+          <label class="sial-field"><span class="sial-label">Semana</span><select class="sial-select" id="filter-week"><option value="all">Todas las semanas</option></select></label>
+          <p class="schedule-help" id="results-count" aria-live="polite"></p>
+        </div>
+        <div id="schedule-results" class="schedule-results"></div>
+      </section>
+      <p class="schedule-demo">Propuesta interactiva · datos de ejemplo. Los cambios duran esta sesión.</p>
+    </div>
+  </main>
+  <script src="../shared/sial-mobile-core.js"></script>
+  <script src="programacion-contenedores.js"></script>
+</body>
+</html>
