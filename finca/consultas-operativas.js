@@ -21,6 +21,31 @@
     renderDispatches();
   }
 
+  document.addEventListener('click', function (event) {
+    var trigger = event.target.closest('[data-detail-title]');
+    if (!trigger || !window.SialMobileUI) return;
+    var details = document.createElement('dl');
+    details.className = 'farm-consult-definition-list';
+    [['Tipo', 'detailKind'], ['Fecha o período', 'detailDate'], ['Destino', 'detailDestination'], ['Estado', 'detailStatus']].forEach(function (field) {
+      if (!trigger.dataset[field[1]]) return;
+      var row = document.createElement('div');
+      var label = document.createElement('dt');
+      var value = document.createElement('dd');
+      label.textContent = field[0];
+      value.textContent = trigger.dataset[field[1]];
+      row.append(label, value);
+      details.append(row);
+    });
+    window.SialMobileUI.openDialog({
+      id: 'farm-consult-detail',
+      title: trigger.dataset.detailTitle,
+      variant: 'sheet',
+      content: details,
+      returnFocus: trigger,
+      actions: [{ label: 'Cerrar', variant: 'primary' }]
+    });
+  });
+
   var week = document.querySelector('[data-pickup-week]');
   if (week) {
     function renderPickups() {
