@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#005ca8">
+  <link rel="icon" href="../assets/brand/isotipo-sial.svg" type="image/svg+xml">
+  <title>Mario puerto · SIAL Móvil</title>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('sial-mobile-theme')||'light';}catch(e){}</script>
+  <link rel="stylesheet" href="../shared/sial-mobile-core.css">
+
+  <link rel="stylesheet" href="mario-puerto-native.css">
+</head>
+<body data-sial-no-drawer>
+  <main class="sial-page">
+    <header class="sial-page-header">
+      <a class="sial-btn sial-btn-icon" href="index.html" aria-label="Volver a ZE Puerto"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+      <span class="sial-app-isotype" aria-hidden="true"><img src="../assets/brand/isotipo-sial.svg" alt=""></span>
+      <div class="sial-page-title"><h1>Mario puerto</h1><p>Cargue de contenedores en puerto</p></div>
+      <button class="sial-btn sial-btn-icon" type="button" data-theme-toggle aria-label="Cambiar tema"><svg class="sial-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 7 9 9 0 1 1-9-7Z"/></svg></button>
+    </header>
+    <section class="sial-page-body"><div id="mario-native-root"></div></section>
+  </main>
+  <div id="mario-runtime-root"></div>
+  <script src="../shared/sial-mobile-core.js"></script>
+  <script src="../assets/mario-puerto/mario-puerto.js"></script>
+</body>
+</html>

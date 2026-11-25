@@ -1,0 +1,6 @@
+/* Solo geometría del host web; los controles se renderizan desde el paquete móvil. */
+#mario-native-root { width: 100%; min-width: 0; }
+#mario-runtime-root { position: fixed; inset: auto 0 0; height: 0; z-index: 100; pointer-events: none; }
+#mario-runtime-root > div { pointer-events: auto; }
+#mario-native-root input { min-width: 0; }
+#mario-native-root [role="button"]:focus-visible { outline: 2px solid var(--sial-focus); outline-offset: 3px; }
