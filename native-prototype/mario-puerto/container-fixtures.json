@@ -1,0 +1,90 @@
+[
+  {
+    "value": "SIALU1234567",
+    "label": "SIALU1234567",
+    "operation": "EXP-2026-0418",
+    "journey": "VIAJE-7751",
+    "vehicle": "TUL458",
+    "location": "En ZE"
+  },
+  {
+    "value": "SIALB7654321",
+    "label": "SIALB7654321",
+    "operation": "EXP-2026-0422",
+    "journey": "VIAJE-7764",
+    "vehicle": "XYZ789",
+    "location": "En ZE"
+  },
+  {
+    "value": "SIALF4455667",
+    "label": "SIALF4455667",
+    "operation": "EXP-2026-0430",
+    "journey": "VIAJE-7801",
+    "vehicle": "MNO456",
+    "location": "En finca"
+  },
+  {
+    "value": "SIALF9988776",
+    "label": "SIALF9988776",
+    "operation": "EXP-2026-0437",
+    "journey": "VIAJE-7812",
+    "vehicle": "JKL321",
+    "location": "En finca"
+  },
+  {
+    "value": "SIALU7788990",
+    "label": "SIALU7788990",
+    "operation": "EXP-2026-0444",
+    "journey": "VIAJE-7830",
+    "vehicle": "BNX234",
+    "location": "En ZE"
+  },
+  {
+    "value": "SIALU6677881",
+    "label": "SIALU6677881",
+    "operation": "EXP-2026-0445",
+    "journey": "VIAJE-7831",
+    "vehicle": "CTG908",
+    "location": "En ZE"
+  },
+  {
+    "value": "SIALB2244668",
+    "label": "SIALB2244668",
+    "operation": "EXP-2026-0450",
+    "journey": "VIAJE-7838",
+    "vehicle": "BGA551",
+    "location": "En ZE"
+  },
+  {
+    "value": "SIALF1122334",
+    "label": "SIALF1122334",
+    "operation": "EXP-2026-0457",
+    "journey": "VIAJE-7845",
+    "vehicle": "SMR782",
+    "location": "En finca"
+  },
+  {
+    "value": "SIALF5566778",
+    "label": "SIALF5566778",
+    "operation": "EXP-2026-0461",
+    "journey": "VIAJE-7851",
+    "vehicle": "VUP315",
+    "location": "En finca"
+  },
+  {
+    "value": "SIALF8899001",
+    "label": "SIALF8899001",
+    "operation": "EXP-2026-0468",
+    "journey": "VIAJE-7859",
+    "vehicle": "RIO620",
+    "location": "En finca"
+  },
+  {
+    "value": "SIALB3344559",
+    "label": "SIALB3344559",
+    "operation": "EXP-2026-0472",
+    "journey": "VIAJE-7864",
+    "vehicle": "MTR417",
+    "location": "En ZE"
+  }
+]
